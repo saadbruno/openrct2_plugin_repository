@@ -74,11 +74,12 @@ GRAPHQL;
 $result = graphql_query('https://api.github.com/graphql', $gitQuery, [], $_ENV['GITHUB_TOKEN']);
 
 // converts the timestamp
-$timestamp =  date("U",strtotime($result['data']['repository']['updatedAt']));
+$updatedAt =  date("U",strtotime($result['data']['repository']['updatedAt']));
+$submittedAt = time();
 
 // converts OG image to boolean
-if (empty($result['data']['repository']['usesCustomOpenGraphImage'])) {
-  $usesOGImg = 0;
+if ($result['data']['repository']['usesCustomOpenGraphImage'] == 1) {
+  $usesOGImg = 1;
 } else {
   $usesOGImg = 0;
 }
@@ -91,12 +92,13 @@ $readme .= $result['data']['repository']['readme4']['text'];
 
 // PLUGINS db insert
 $sql = "INSERT INTO `plugins`
-        (`id`, `name`, `url`, `description`, `updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (`id`, `name`, `url`, `description`, `submittedAt`, `updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
         `name` = ?,
         `url` = ?, 
         `description` = ?, 
+        `submittedAt` = ?, 
         `updatedAt` = ?,
         `usesCustomOpenGraphImage` = ?,
         `thumbnail` = ?,
@@ -110,7 +112,8 @@ try {
         $result['data']['repository']['name'],
         $result['data']['repository']['url'],
         $result['data']['repository']['description'],
-        $timestamp,
+        $submittedAt,
+        $updatedAt,
         $usesOGImg,
         $result['data']['repository']['openGraphImageUrl'],
         $result['data']['repository']['stargazers']['totalCount'],
@@ -119,7 +122,8 @@ try {
         $result['data']['repository']['name'],
         $result['data']['repository']['url'],
         $result['data']['repository']['description'],
-        $timestamp,
+        $submittedAt,
+        $updatedAt,
         $usesOGImg,
         $result['data']['repository']['openGraphImageUrl'],
         $result['data']['repository']['stargazers']['totalCount'],
@@ -196,7 +200,7 @@ if ($_ENV['DEBUG']) {
 
     echo "<!--";
 
-    echo "\n\nTImestamp: " . $timestamp ."\n";
+    echo "\n\nTimestamp: " . $updatedAt ."\n";
 
     echo "\n\nSession notices:\n";
     print_r($_SESSION['notice']);

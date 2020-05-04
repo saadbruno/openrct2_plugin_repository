@@ -17,10 +17,12 @@
                 <h2>Newest plug-ins</h2>
                 <div class="plugin-list">
                     <?php
-                    include "partials/list-item.php";
-                    include "partials/list-item.php";
-                    include "partials/list-item.php";
-                    include "partials/list-item.php";
+
+                    $list = getPluginList();
+
+                    foreach ($list as $key => $plugin) {
+                        include "partials/list-item.php";
+                    }
                     ?>
                 </div>
             </div>

@@ -1,23 +1,45 @@
 <div class="row list-item">
-    <div class="col-4 col-md-2 thumbnail">
-        <a href="#plugin">
-            <img class="img-fluid" src="https://via.placeholder.com/200x150" />
-        </a>
-    </div>
+
+    <?php if ($plugin['usesCustomOpenGraphImage'] == 1) { ?>
+        <div class="col-4 col-md-2 thumbnail">
+            <a href="/plugin/<?= $plugin['id'] ?>/<?= urlencode($plugin['name']) ?>">
+                <img class="img-fluid" src="<?= $plugin['thumbnail'] ?>" />
+            </a>
+        </div>
+    <?php } ?>
+
     <div class="col content">
         <div class="row h-100">
             <div class="col-12">
-                <a href="#plugin">
-                    <h4>This is the plugin title</h4>
+                <a href="/plugin/<?= $plugin['id'] ?>/<?= urlencode($plugin['name']) ?>">
+                    <h4><?= $plugin['name'] ?></h4>
                 </a>
-                <a href="#author">
-                    <i class="fas fa-user"></i> Author
-                </a>
+                <p class="description"><?= $plugin['description'] ?></p>
+
             </div>
             <div class="footer col-12 align-self-end">
-                <span data-toggle="tooltip" data-placement="bottom" title="Coming soon!"><i class="fas fa-thumbs-up"></i> 0</span>
-                <span><i class="fas fa-cloud-upload-alt"></i> 3d</span>
-                <span><i class="fas fa-redo"></i> 3d</span>
+                <span>
+                    <a href="/user/<?= $plugin['owner'] ?>/<?= urlencode($plugin['username']) ?>">
+                        <?php if (!empty($plugin['avatarUrl'])) { ?>
+                            <img src="<?= $plugin['avatarUrl'] ?>&s=20" class="avatar" />
+                        <?php } else { ?>
+                            <i class="fas fa-user"></i>
+                        <?php } ?>
+                        <?= $plugin['username'] ?>
+                    </a>
+                </span>
+                <span data-toggle="tooltip" data-placement="bottom" title="Stars on GitHub"><i class="fas fa-star"></i> <?= $plugin['stargazers'] ?></span>
+                <span data-toggle="tooltip" data-placement="bottom" title="Submitted: <?= $plugin['submittedAtRel'] ?>"><i class="fas fa-cloud-upload-alt"></i> <?= $plugin['submittedAtRelShort'] ?></span>
+                <span data-toggle="tooltip" data-placement="bottom" title="Last updated: <?= $plugin['updatedAtRel'] ?>"><i class="fas fa-redo"></i> <?= $plugin['updatedAtRelShort'] ?></span>
+                <span class="tags">
+                    <ul>
+                        <?php
+                        foreach ($plugin['tags'] as $key => $tag) {
+                            echo '<li>' . $tag['tag'] . '</li>';
+                        }
+                        ?>
+                    </ul>
+                </span>
             </div>
         </div>
     </div>

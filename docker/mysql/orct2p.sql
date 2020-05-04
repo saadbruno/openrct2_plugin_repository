@@ -7,6 +7,7 @@ CREATE TABLE `plugins` (
   `name` varchar(255) DEFAULT NULL COMMENT 'Repo Name from GitHub',
   `url` varchar(255) DEFAULT NULL COMMENT 'Repo URL',
   `description` varchar(1024) NULL COMMENT 'Repo description',
+  `submittedAt` int(12) DEFAULT NULL COMMENT 'Timestamp of when the plugin was submitted to our database',
   `updatedAt` int(12) DEFAULT NULL COMMENT 'Last time repo was updated, in Unix timestamp',
   `usesCustomOpenGraphImage` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Defines if repo has an OG image',
   `thumbnail` varchar(255) DEFAULT NULL COMMENT 'from "openGraphImageUrl"',
