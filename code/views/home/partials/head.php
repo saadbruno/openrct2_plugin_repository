@@ -6,7 +6,10 @@
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/navbar-static/">
 
-    <!-- Bootstrap core CSS -->
+    <!-- Vendor CSS-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+
+    <!-- Custom CSS  -->
     <link href="/public/styles/orct2p.css?v=<?= $config['version'] ?>" rel="stylesheet">
 
 </head>
