@@ -45,3 +45,4 @@ logs-nginx:
 
 # aliases
 sass: build-sass
+scss: build-sass

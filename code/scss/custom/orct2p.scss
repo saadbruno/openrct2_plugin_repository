@@ -1,10 +1,12 @@
+@import "fonts",
+        "variables";
+
 // Your variable overrides
-$body-bg: #000;
-$body-color: rgb(167, 180, 190);
+$body-bg: #dcdfe0;
+$body-color: #2a2d2e;
 
 $theme-colors: (
-  "primary": #00d962,
-  "danger": #ff36de
+  "primary": #2993cf
 );
 
 // bootstrap
