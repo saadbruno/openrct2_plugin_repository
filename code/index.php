@@ -1,15 +1,26 @@
-<?
-# Test database connection.
-try {
-    $dbh = new PDO('mysql:host=mysql;port=3306;dbname=orct2p', 'admin', '1h030PUVhZLCsM');
-    $dbi = 'Database connected successfully!';
-} catch (PDOException $e) {
-    $dbi = 'Error!: ' . $e->getMessage();
+<?php 
+
+// loads envs to a friendlier array (with fallbacks where applicable)
+$config = array(
+    'TLD'=> $_ENV['TLD'],
+);
+
+$config['TLD'] = $config['TLD'] ? $config['TLD'] : 'com';
+
+switch ($_GET['q1']) {
+    case 'value':
+        # code...
+        break;
+    
+    case 'home':
+    default:
+        require_once("./features/home/index.php");
+        break;
 }
 
-echo $dbi;
-?>
 
+
+?>
 
 <!-- <pre>
 <?php print_r($_GET); ?>
