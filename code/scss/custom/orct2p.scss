@@ -1,13 +1,8 @@
 @import "fonts",
         "variables";
 
-// Your variable overrides
-$body-bg: #dcdfe0;
-$body-color: #2a2d2e;
+@import "elements/navbar";
 
-$theme-colors: (
-  "primary": #2993cf
-);
 
 // bootstrap
 @import "../vendor/bootstrap-4.4.1/bootstrap.scss";
