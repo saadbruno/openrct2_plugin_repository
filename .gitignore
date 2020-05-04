@@ -3,3 +3,5 @@
 /docker/traefik/acme
 /docker/portainer
 /.env
+
+/code/public/styles/*.css
