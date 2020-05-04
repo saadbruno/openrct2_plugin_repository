@@ -1,4 +1,3 @@
-# traefik + nginx + php-fpm + mysql + phpmyadmin + portainer
 version: '3.4'
 services:
     traefik:
@@ -92,7 +91,7 @@ services:
             - traefik.frontend.rule=Host:www.portainer.${DOMAIN_NAME},portainer.${DOMAIN_NAME}
             - traefik.port=9000
         networks:
-             - proxy.${DOMAIN_NAME}
+            - proxy.${DOMAIN_NAME}
 networks:
     proxy.openrct2plugins.test:
         driver: overlay
