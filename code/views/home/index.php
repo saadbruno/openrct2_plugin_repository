@@ -5,7 +5,10 @@
 
 <body>
 
-    <?php include_once "partials/nav.php"; ?>
+    <?php
+    include_once "partials/nav.php";
+    include_once "partials/header.php";
+    ?>
 
     <main role="main" class="container">
 

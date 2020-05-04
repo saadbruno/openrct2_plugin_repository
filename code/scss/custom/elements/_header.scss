@@ -1,0 +1,32 @@
+.header-video {
+    position: relative;
+    min-height: 40vh;
+    overflow: hidden;
+    color: var(--white);
+    text-align: center;
+
+    .row {
+        min-height: 40vh;
+        align-items: center;
+    }
+
+    video {
+        position: absolute;
+        z-index: -1;
+    }
+
+    p {
+        margin-top: 1rem;
+    }
+
+    a {
+        color: var(--primary-light);
+        &:hover {
+            color: var(--primary);
+        }
+    }
+}
+
+
+
+

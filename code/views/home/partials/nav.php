@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-dark mb-4">
+<nav class="navbar navbar-expand-md navbar-dark">
     <a class="navbar-brand" href="/"><img class="img-fluid logo" src="/public/media/img/logo/orct2p-logo-h-m-dark.svg" /> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -3,3 +3,9 @@ body {
     flex-direction: column;
     display: flex;
 }
+
+main {
+    &.container {
+        margin-top: 2rem;
+    }
+}
