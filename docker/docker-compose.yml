@@ -60,7 +60,7 @@ services:
             - "3306"
         volumes:
             - ../mysql:/var/lib/mysql
-        env_file: ./mysql/.env
+        env_file: .env
         labels:
             - traefik.enable=false
         networks:

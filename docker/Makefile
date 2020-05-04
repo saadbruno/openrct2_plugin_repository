@@ -42,6 +42,11 @@ logs-php:
 	docker-compose logs -f php-fpm
 logs-nginx:
 	docker-compose logs -f nginx
+logs-mysql:
+	docker-compose logs -f mysql
+# database management
+import-schema:
+	cat ./mysql/orct2p.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 
 # aliases
 sass: build-sass
