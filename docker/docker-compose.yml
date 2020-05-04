@@ -2,7 +2,7 @@
 version: '3.4'
 services:
     traefik:
-        container_name: ${DOMAIN_NAME}_traefik
+        container_name: orct2p_traefik
         image: traefik:v1.7
         ports:
             - "${HTTP_PORT}:80"
@@ -18,7 +18,7 @@ services:
         networks:
             - proxy.${DOMAIN_NAME}
     nginx:
-        container_name: ${DOMAIN_NAME}_nginx
+        container_name: orct2p_nginx
         image: nginx:latest
         volumes:
             - ../:/var/www
@@ -37,14 +37,12 @@ services:
         depends_on:
             - mysql
     php-fpm:
-        container_name: ${DOMAIN_NAME}_php-fpm
+        container_name: orct2p_php-fpm
         build: ./php-fpm
         expose:
             - "9000"
         volumes:
-            - ../:/var/www
-            - /var/www/docker
-            - /var/www/mysql
+            - ../code:/var/www/code
             - ./php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
         labels:
             - traefik.enable=false
@@ -55,7 +53,7 @@ services:
         depends_on:
             - mysql
     mysql:
-        container_name: ${DOMAIN_NAME}_mysql
+        container_name: orct2p_mysql
         image: mysql:5.7.22
         expose:
             - "3306"
@@ -67,7 +65,7 @@ services:
         networks:
             - proxy.${DOMAIN_NAME}
     phpmyadmin:
-        container_name: ${DOMAIN_NAME}_phpmyadmin
+        container_name: orct2p_phpmyadmin
         image: phpmyadmin/phpmyadmin
         labels:
             - traefik.backend=pma
@@ -82,7 +80,7 @@ services:
         depends_on:
             - mysql
     portainer:
-        container_name: ${DOMAIN_NAME}_portainer
+        container_name: orct2p_portainer
         image: portainer/portainer
         volumes:
             - /var/run/docker.sock:/var/run/docker.sock
