@@ -24,7 +24,10 @@
                 span:not(:last-child):after {
                     content: '\25CF';
                     margin: 0 0.3rem;
+                    font-size: 0.6rem;
                     color: var(--gray-4);
+                    position: relative;
+                    top: -2px;
                 }
             }
         }
