@@ -26,7 +26,24 @@
         </form>
 
         <div class="nav-user ml-md-2 mt-2 mt-md-0">
-            <a href="#" class="btn btn-secondary"><i class="fas fa-sign-in-alt"></i> Sign-in</a>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="submitButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-upload"></i> Submit Plugin
+                </button>
+                <div class="dropdown-menu dropdown-menu-right submit-dropdown" aria-labelledby="submitButton">
+                    <form action="/" method="post" class="needs-validation" novalidate>
+                        <label for="githubUrl" class="w-100"><i class="fab fa-github"></i> GitHub URL</label>
+                        <div class="input-group">
+                            <input type="url" class="form-control input-group-prepend" id="githubUrl" name="githubUrl" placeholder="Ex: https://github.com/OpenRCT2/plugin-samples">
+                            <button type="submit" class="btn btn-primary input-group-append"><i class="fas fa-check"></i></button>
+                            <div class="invalid-feedback">
+                                URL seems invalid.
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
         </div>
 
     </div>

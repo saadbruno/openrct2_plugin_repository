@@ -20,3 +20,12 @@ $theme-colors: (
   "gray-9": darken($body-bg, 70),
   "gray-10": darken($body-bg, 80)  
 );
+
+// these are unchanged from bootstrap. I'm including them here cause I'm gonna use them, and the bootstrap stuff comes after
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;

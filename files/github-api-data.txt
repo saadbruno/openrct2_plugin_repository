@@ -1,0 +1,29 @@
+{
+    repository(owner: "OpenRCT2", name: "OpenRCT2") {
+        id
+        name
+        url
+        description
+        pushedAt
+        updatedAt
+        usesCustomOpenGraphImage
+        stargazers {
+            totalCount
+        }
+        owner {
+            id
+            login
+            avatarUrl
+            url
+        }
+        repositoryTopics(first: 20) {
+            edges {
+                node {
+                    topic {
+                        name
+                    }
+                }
+            }
+        }
+    }
+}
