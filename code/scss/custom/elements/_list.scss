@@ -1,0 +1,33 @@
+.list-container {
+    background-color: var(--gray-1);
+    padding-top: 0.5rem;
+    margin-bottom: 1rem;
+
+    .plugin-list {
+
+        .list-item {
+            border-top: solid 1px var(--gray-3);
+            padding: 0.5rem 0;
+
+            .thumbnail {
+                img {
+                    border: solid 3px var(--gray-3);
+                    width: 100%;
+                    height: 120px;
+                    object-fit: cover;
+                }
+            }
+
+            .footer {
+                color: var(--gray-6);
+
+                span:not(:last-child):after {
+                    content: '\25CF';
+                    margin: 0 0.3rem;
+                    color: var(--gray-4);
+                }
+            }
+        }
+
+    }
+}

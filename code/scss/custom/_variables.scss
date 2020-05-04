@@ -9,5 +9,14 @@ $body-color: #2a2d2e;
 
 $theme-colors: (
   "primary": #2993cf,
-  "gray-light": #c3c8cc
+  "gray-1": darken($body-bg, 5),
+  "gray-2": darken($body-bg, 10),
+  "gray-3": darken($body-bg, 15),
+  "gray-4": darken($body-bg, 20),
+  "gray-5": darken($body-bg, 30),
+  "gray-6": darken($body-bg, 40),
+  "gray-7": darken($body-bg, 50),
+  "gray-8": darken($body-bg, 60),
+  "gray-9": darken($body-bg, 70),
+  "gray-10": darken($body-bg, 80)  
 );

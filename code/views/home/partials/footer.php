@@ -1,10 +1,8 @@
-<footer class="footer mt-auto py-3">
+<footer class="footer mt-auto py-4">
     <div class="container">
         <span class="text-muted">
             Made with love by
-            <a href="https://twitter.com/saadbruno_" target="_blank">
-                Bruno Saad
-            </a>
+            <a href="https://twitter.com/saadbruno_" target="_blank">Bruno Saad</a> and all the <a href="https://github.com/saadbruno/openrct2_plugin_repository" target="_blank">GitHub contributors</a>
             |
             <a href="https://github.com/saadbruno/openrct2_plugin_repository" target="_blank">
                 <i class="fab fa-github"></i>
