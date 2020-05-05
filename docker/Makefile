@@ -3,7 +3,7 @@
 # Build commands
 build: build-network build-sass build-containers
 build-network:
-	docker network create proxy.openrct2plugins.test
+	docker network create proxy.openrct2plugins
 build-containers:
 	docker-compose build
 build-sass:
@@ -34,6 +34,8 @@ restart-nginx: stop-nginx run-nginx
 # Attach to command line inside container
 manage-php:
 	docker exec -it orct2p_php-fpm bash
+manage-nginx:
+	docker exec -it orct2p_nginx bash
 
 # logs
 logs:
@@ -44,6 +46,8 @@ logs-nginx:
 	docker-compose logs -f nginx
 logs-mysql:
 	docker-compose logs -f mysql
+logs-traefik:
+	docker-compose logs -f traefik
 # database management
 import-schema:
 	cat ./mysql/orct2p.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
@@ -52,3 +56,41 @@ import-schema:
 sass: build-sass
 scss: build-sass
 css: build-sass
+
+#### PRODUCTION ####
+build-traefik-prod:
+	docker-compose -f docker-compose.prod.yml build --no-cache traefik
+build-mysql-prod:
+	docker-compose -f docker-compose.prod.yml build --no-cache mysql
+build-nginx-prod:
+	docker-compose -f docker-compose.prod.yml build --no-cache nginx
+build-prod:
+	docker-compose -f docker-compose.prod.yml build --no-cache
+
+run-traefik-prod:
+	docker-compose -f docker-compose.prod.yml up -d traefik
+run-mysql-prod:
+	docker-compose -f docker-compose.prod.yml up -d mysql
+run-nginx-prod:
+	docker-compose -f docker-compose.prod.yml up -d nginx
+run-prod:
+	docker-compose -f docker-compose.prod.yml up -d
+
+stop-traefik-prod:
+	docker-compose -f docker-compose.prod.yml stop traefik
+stop-mysql-prod:
+	docker-compose -f docker-compose.prod.yml stop mysql
+stop-nginx-prod:
+	docker-compose -f docker-compose.prod.yml stop nginx
+stop-prod:
+	docker-compose -f docker-compose.prod.yml down
+
+redeploy-prod: build-sass build-prod stop-prod clean build-network run-prod
+
+redeploy-traefik-prod: build-traefik-prod stop-traefik-prod clean run-traefik-prod
+
+redeploy-mysql-prod: build-mysql-prod stop-mysql-prod clean run-mysql-prod
+
+redeploy-nginx-prod: build-nginx-prod stop-nginx-prod clean run-nginx-prod
+
+redeploy-web-prod: redeploy-nginx-prod redeploy-traefik-prod
