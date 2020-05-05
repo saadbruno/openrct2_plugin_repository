@@ -15,7 +15,7 @@
                 <a class="nav-link" href="/list/?sort=rating">Rating</a>
             </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
+        <form id="nav-search" class="form-inline mt-2 mt-md-0">
             <div class="input-group">
                 <input class="form-control input-group-prepend" type="text" placeholder="Search" aria-label="Search">
                 <button class="btn btn-secondary input-group-append" type="submit"><i class="fas fa-search"></i></button>
@@ -28,7 +28,7 @@
                     <i class="fas fa-upload"></i> Submit Plugin
                 </button>
                 <div class="dropdown-menu dropdown-menu-right submit-dropdown" aria-labelledby="submitButton">
-                    <form action="/" method="post" class="needs-validation" novalidate>
+                    <form id="submit-form" action="/" method="post" class="needs-validation" novalidate>
                         <label for="githubUrl" class="w-100"><i class="fab fa-github"></i> GitHub URL</label>
                         <div class="input-group">
                             <input type="url" class="form-control input-group-prepend" id="githubUrl" name="githubUrl" placeholder="Ex: https://github.com/OpenRCT2/plugin-samples">

@@ -38,11 +38,6 @@ switch ($_GET['q1']) {
     case 'home':
     default:
 
-        // if a plugin was submitted
-        if (isset($_POST['githubUrl'])) {
-            include_once "./lib/db/submit.php";
-        }
-
         require_once("./features/home/index.php");
 
         break;

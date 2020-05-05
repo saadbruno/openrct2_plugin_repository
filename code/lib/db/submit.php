@@ -14,6 +14,16 @@ $url['repoData'] = explode("/", $url['parsed']['path']);
 // removes ".git" from name, in case user submitted the .git URL
 $url['repoData'][2] = str_replace(".git", "", $url['repoData'][2]);
 
+// VALIDATION
+// if it's not https, the host is not github.com, either of the repo datas are empty, throw an error
+if ($url['parsed']['scheme'] != 'https' || $url['parsed']['host'] != 'github.com' || empty($url['repoData'][1]) || empty($url['repoData'][2]) ) {
+  header('Content-Type: application/json; charset=UTF-8');
+  $result=array();
+  $result['status'] = 'error';
+  $result['message'] = 'URL is not valid';
+  die(json_encode($result));
+}
+
 // puts array into variables so we can use them below:
 $repoOwner = $url['repoData'][1];
 $repoName = $url['repoData'][2];
@@ -131,12 +141,12 @@ try {
         $readme
     ]);
 } catch (Exception $e) {
-    // sets notices in the session. In the future, if we add toasts, we can use this.
-    $_SESSION['notice']['type'] = "error";
-    $_SESSION['notice']['message'] = "There was an error trying to add this plugin";
-    if (isset($_ENV['DEBUG'])) {
-        $_SESSION['notice']['message'] .= "<br>" . $e;
-    }
+    header('HTTP/1.1 500 Internal Server Error');
+    header('Content-Type: application/json; charset=UTF-8');
+    $result=array();
+    $result['status'] = 'error';
+    $result['message'] = 'Error when adding plugin';
+    die(json_encode($result));
 }
 
 
@@ -160,12 +170,12 @@ try {
         $result['data']['repository']['owner']['url']
     ]);
 } catch (Exception $e) {
-    // sets notices in the session. In the future, if we add toasts, we can use this.
-    $_SESSION['notice']['type'] = "error";
-    $_SESSION['notice']['message'] = "There was an error trying to add the user";
-    if (isset($_ENV['DEBUG'])) {
-        $_SESSION['notice']['message'] .= "<br>" . $e;
-    }
+  header('HTTP/1.1 500 Internal Server Error');
+  header('Content-Type: application/json; charset=UTF-8');
+  $result=array();
+  $result['status'] = 'error';
+  $result['message'] = 'Error when adding user';
+  die(json_encode($result));
 }
 
 
@@ -186,24 +196,31 @@ foreach ($result['data']['repository']['repositoryTopics']['edges'] as $key => $
           $topic['node']['topic']['name']
       ]);
   } catch (Exception $e) {
-      // sets notices in the session. In the future, if we add toasts, we can use this.
-      $_SESSION['notice']['type'] = "error";
-      $_SESSION['notice']['message'] = "There was an error trying to add tags";
-      if (isset($_ENV['DEBUG'])) {
-          $_SESSION['notice']['message'] .= "<br>" . $e;
-      }
+    header('HTTP/1.1 500 Internal Server Error');
+    header('Content-Type: application/json; charset=UTF-8');
+    $result=array();
+    $result['status'] = 'error';
+    $result['message'] = 'Error when adding tags';
+    die(json_encode($result));
   }
 }
+
+// if we got to this point, everything went well. Send message back saying so.
+
+// builds redirect url
+$redirect = "/plugin/" . $result['data']['repository']['id'] . "/" . urlencode($result['data']['repository']['name']);
+
+header('Content-Type: application/json; charset=UTF-8');
+$result=array();
+$result['status'] = 'success';
+$result['message'] = 'success';
+$result['redirect'] = $redirect;
+die(json_encode($result));
 
 // debugging code
 if ($_ENV['DEBUG']) {
 
     echo "<!--";
-
-    echo "\n\nTimestamp: " . $updatedAt ."\n";
-
-    echo "\n\nSession notices:\n";
-    print_r($_SESSION['notice']);
 
     echo "\n\nURL debugging:\n";
     print_r($url);

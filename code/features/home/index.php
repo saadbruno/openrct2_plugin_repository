@@ -1,4 +1,9 @@
-<?php 
+<?php
+
+// if a plugin was submitted
+if (isset($_POST['githubUrl'])) {
+    include_once "./lib/db/submit.php";
+}
 
 // set meta information
 $meta['title'] = 'OpenRCT2 Plug-ins Directory';
