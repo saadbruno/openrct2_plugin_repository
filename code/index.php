@@ -31,6 +31,10 @@ switch ($_GET['q1']) {
         require_once("./features/user/index.php");
         break;
 
+    case 'plugin':
+        require_once("./features/plugin/index.php");
+        break;
+
     case 'home':
     default:
 

@@ -5,6 +5,13 @@
     color: var(--white);
     text-align: center;
 
+    &.notFound {
+        height: 100vh;
+        .row {
+            height: 100vh;
+        }
+    }
+
     .row {
         min-height: 40vh;
         align-items: center;

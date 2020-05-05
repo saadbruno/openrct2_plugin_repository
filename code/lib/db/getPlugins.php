@@ -118,3 +118,48 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $o
 
     return $plugins;
 }
+
+function getPluginDetails($id) {
+
+    global $pdo;
+
+    // build the query
+    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`readme`,`plugins`.`owner`,`plugins`.`url`, `users`.`username`, `users`.`avatarUrl`, `users`.`url` AS `ownerUrl` ";
+    $query .= "FROM `plugins` ";
+    $query .= "LEFT JOIN `users` ";
+    $query .= "ON `plugins`.`owner` = `users`.`id` ";
+    $query .= "WHERE `plugins`.`id` = ? ";
+    $query .= "LIMIT 1";
+
+    // get plugin info
+    $stmt_plugin = $pdo->prepare($query); 
+    $stmt_plugin->execute([$id]);
+    $row_plugin = $stmt_plugin->fetch();
+    
+
+    // get plugin tags
+    $stmt_tags = $pdo->prepare("SELECT `tag` FROM `tags` WHERE `plugin_id` = ? ORDER BY `tags`.`tag` ASC");
+    $stmt_tags->execute([$id]);
+    $tags = $stmt_tags->fetchAll();
+
+    // sets relative dates for updated and submitted
+    $row_plugin['submittedAtRel'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugin['submittedAt']), 'now');
+    $row_plugin['submittedAtRelShort'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugin['submittedAt']), 'now', 'short');
+    $row_plugin['updatedAtRel'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugin['updatedAt']), 'now');
+    $row_plugin['updatedAtRelShort'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugin['updatedAt']), 'now', 'short');
+
+
+    $plugin = $row_plugin;
+    $plugin['tags'] = $tags;
+
+
+    if ($_ENV['DEBUG']) {
+        echo '<!--';
+        echo "\n\nDb query result: \n";
+        // print_r($plugin);
+        echo '-->';
+    }
+
+    return $plugin;
+
+}

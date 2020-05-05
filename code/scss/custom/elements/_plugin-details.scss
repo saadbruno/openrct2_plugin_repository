@@ -1,0 +1,62 @@
+.plugin-details {
+
+    .title {
+        margin-bottom: 1.5rem;
+
+        .lead {
+            border-bottom: solid 1px var(--gray-3);
+            padding-bottom: 1.5rem;
+        }
+
+    }
+
+    .sidebar {
+
+        margin-bottom: 2rem;
+
+        h5,
+        h6 {
+            color: var(--secondary);
+        }
+
+        h6 {
+            margin-top: 1.5rem;
+        }
+
+        .download-plugin {
+            width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .author {
+            font-size: 1.2rem;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+        }
+
+        .links {
+            a {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+        }
+    }
+
+    .description {
+        background-color: var(--gray-1);
+        padding: 1.5rem 0.8rem;
+        margin-bottom: 3rem;
+
+        @media (min-width: map-get($grid-breakpoints, "md")) {
+            padding: 2rem 2.3rem;
+        }
+
+        img {
+            max-width: 100%;
+        }
+    }
+}
