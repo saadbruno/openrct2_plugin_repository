@@ -1,13 +1,5 @@
 <div class="row list-item">
 
-    <?php if ($plugin['usesCustomOpenGraphImage'] == 1) { ?>
-        <div class="col-4 col-md-2 thumbnail">
-            <a href="/plugin/<?= $plugin['id'] ?>/<?= urlencode($plugin['name']) ?>">
-                <img class="img-fluid" src="<?= $plugin['thumbnail'] ?>" />
-            </a>
-        </div>
-    <?php } ?>
-
     <div class="col content">
         <div class="row h-100">
             <div class="col-12">
@@ -43,4 +35,12 @@
             </div>
         </div>
     </div>
+
+    <?php if ($plugin['usesCustomOpenGraphImage'] == 1) { ?>
+        <div class="col-4 col-md-2 thumbnail">
+            <a href="/plugin/<?= $plugin['id'] ?>/<?= urlencode($plugin['name']) ?>">
+                <img class="img-fluid" src="<?= $plugin['thumbnail'] ?>" />
+            </a>
+        </div>
+    <?php } ?>
 </div>

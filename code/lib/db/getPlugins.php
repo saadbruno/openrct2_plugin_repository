@@ -1,10 +1,13 @@
 <?php
-function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc')
+function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $owner ='')
 {
-
     // if there's a sort get, we override the one sent through the function
     if ($_GET['sort']) {
         $sort = $_GET['sort'];
+    }
+    // if there's an order get, we override the one sent through the function
+    if ($_GET['order']) {
+        $order = $_GET['order'];
     }
 
     global $pdo;
@@ -13,7 +16,23 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc')
 
     // ==== PAGINATION =====
     // get number of total items
-    $count = $pdo->query("SELECT COUNT(*) AS `n` FROM `plugins`")->fetch();
+    // this changes the query and execution based if we selected a specific user or not
+    $query = "SELECT ";
+    if (!empty($owner)) { $query .= "`plugins`.`owner`,"; }
+    $query .= "COUNT(*) AS `n` FROM `plugins` ";
+    if (!empty($owner)) { $query .= "WHERE `plugins`.`owner` = ? GROUP BY `plugins`.`owner` "; }
+
+    $stmt_count = $pdo->prepare($query); 
+
+    if (!empty($owner)) {
+        $stmt_count->execute([$owner]);
+    } else {
+        $stmt_count->execute();
+    }
+    
+
+    $count = $stmt_count->fetch();
+
     // get total number of pages
     $pages = ceil($count['n'] / $items);
     // if user requested a page higher than total of pages, we override it
@@ -40,15 +59,37 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc')
             break;
     }
 
+    $orderQuery = '';
+    switch ($order) {
+        case 'asc':
+            $orderQuery = 'ASC';
+            break;
+        case 'desc':
+        default:
+            $orderQuery = 'DESC';
+            break;
+    }
+
+    // build the query
+    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`, `users`.`username`, `users`.`avatarUrl` ";
+    $query .= "FROM `plugins` ";
+    $query .= "LEFT JOIN `users` ";
+    $query .= "ON `plugins`.`owner` = `users`.`id` ";
+    // if we select a specific owner, add this to the query
+    if (!empty($owner)) {
+        $query .= "WHERE `plugins`.`owner` = ? ";
+    }
+    $query .= "ORDER BY $sortQuery $orderQuery "; // (This is not user input, so we should be fine) i know you shouldn't put variables directly in the statement. But it doesn't seem to work putting it in the execute() for the ORDER BY. 
+    $query .= "LIMIT ?,? ";
+
     // get plugins
-    $stmt_plugins = $pdo->prepare("SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`, `users`.`username`, `users`.`avatarUrl`
-                                    FROM `plugins`
-                                    LEFT JOIN `users`
-                                    ON `plugins`.`owner` = `users`.`id`
-                                    ORDER BY $sortQuery DESC
-                                    LIMIT ?,?"
-                                   ); // i know you shouldn't put variables directly in the statement. But it doesn't seem to work putting it in hte execute() for the ORDER BY.
-    $stmt_plugins->execute([$start,$items]);
+    $stmt_plugins = $pdo->prepare($query); 
+    if (!empty($owner)) {
+        $stmt_plugins->execute([$owner,$start,$items]);
+    } else {
+        $stmt_plugins->execute([$start,$items]);
+    }
+    
 
     while ($row_plugins = $stmt_plugins->fetch()) {
 
@@ -66,6 +107,13 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc')
 
         $plugins['data'][$row_plugins['id']] = $row_plugins;
         $plugins['data'][$row_plugins['id']]['tags'] = $tags;
+    }
+
+    if ($_ENV['DEBUG']) {
+        echo '<!--';
+        echo "\n\nDb query result: \n";
+        print_r($plugins);
+        echo '-->';
     }
 
     return $plugins;

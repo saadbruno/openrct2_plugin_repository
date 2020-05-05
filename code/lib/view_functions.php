@@ -6,11 +6,6 @@ function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = fa
     // if requested page is higher than the total number of pages, we override it
     $curr_page = $curr_page > $total_pages ? $total_pages : $curr_page;
 
-    echo '<pre>';
-    echo $curr_page;
-    echo $total_pages;
-    echo '</pre>';
-
     // keep all query strings when switching pages (except for q1 to q3, and p)
     $query = array_merge($query, $_GET);
     unset($query['p'], $query['q1'], $query['q2'], $query['q3']);
@@ -27,9 +22,15 @@ function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = fa
                 </a>
             </li>
 
+            <?php 
+            // first page
+            // if we only have one page, we don't need this
+            if ($total_pages > 1) {
+            ?>
             <li class="page-item  <?= !$curr_page || $curr_page == 1 ? 'active' : '' ?>"><a class="page-link" href="/list/?<?=$queryString?>&p=1">1</a></li>
-
             <?php
+            }
+            
             // ellipsis button
             if (($compact == true && $curr_page >= 4) || ($compact == false && $curr_page >= 5)) {
             ?>

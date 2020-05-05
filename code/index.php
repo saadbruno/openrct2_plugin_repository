@@ -5,6 +5,7 @@ require_once "lib/functions.php";
 require_once "lib/view_functions.php";
 require_once "lib/db/db_conn.php";
 require_once "lib/db/getPlugins.php";
+require_once "lib/db/getUser.php";
 
 
 // loads envs to a friendlier array
@@ -24,7 +25,10 @@ $p = $p ? $p : 1;
 switch ($_GET['q1']) {
     case 'list':
         require_once("./features/list/index.php");
+        break;
 
+    case 'user':
+        require_once("./features/user/index.php");
         break;
 
     case 'home':
