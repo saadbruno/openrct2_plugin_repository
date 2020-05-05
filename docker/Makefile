@@ -1,4 +1,7 @@
-.PHONY: build run restart
+.PHONY: setup
+
+# first time setup
+setup: redeploy import-schema
 
 # Build commands
 build: build-network build-sass build-containers
