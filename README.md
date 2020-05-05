@@ -1,6 +1,8 @@
 # OpenRCT2 Plugin Repository
 A place where users can share OpenRCT2 plugins
 
+## Live at [https://openrct2plugins.org](https://openrct2plugins.org)
+
 ![image](https://user-images.githubusercontent.com/23201434/81117476-88ba4400-8efd-11ea-82dc-d01a9048cbb5.png)
 
 For now, users can submit plugis hosted on GitHub repos. There is a button in the top right to submit links, without needing to log in.
