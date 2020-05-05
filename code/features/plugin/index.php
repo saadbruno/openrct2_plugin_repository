@@ -7,10 +7,11 @@ if (empty($plugin['id'])) {
     include("views/home/404.php");
     exit;
 }
-
 // set meta information
 $meta['title'] = $plugin['name'] . ' | OpenRCT2 Plug-ins Directory';
 $meta['description'] = $plugin['description'];
+$meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/plugin/' . $plugin['id'] . '/' . urlencode($plugin['name']);
+
 
 $nav['active'] = '';
 
