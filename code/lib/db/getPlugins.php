@@ -164,7 +164,7 @@ function getPluginDetails($id) {
 
 }
 
-function searchPlugins($searchQuery) {
+function searchPlugins($searchQuery,$page = 1, $items = 8, $sort = 'new', $order = 'desc', $owner ='') {
     // To do: Add pagination, sorting, filtering by author, and other stuff here
 
     global $pdo;
@@ -201,10 +201,78 @@ function searchPlugins($searchQuery) {
         }
 
         // runs the other function that gets the list via IDs
-        return listPluginsFromIdArray($ids);
+        return listPluginsFromIdArray($ids,$page, $items, $sort, $order, $owner);
 }
 
-function listPluginsFromIdArray($ids) {
+function listPluginsFromIdArray($ids,$page = 1, $items = 8, $sort = 'new', $order = 'desc', $owner ='') {
+
+        // if there's a sort get, we override the one sent through the function
+        if ($_GET['sort']) {
+            $sort = $_GET['sort'];
+        }
+        // if there's an order get, we override the one sent through the function
+        if ($_GET['order']) {
+            $order = $_GET['order'];
+        }
+    
+        global $pdo;
+        // creates plugins array
+        $plugins = [];
+    
+        // ==== PAGINATION =====
+        // get number of total items
+        // this changes the query and execution based if we selected a specific user or not
+        $query = "SELECT ";
+        $query .= "COUNT(*) AS `n` FROM `plugins` ";
+        $query .= "WHERE `plugins`.`id` = 'dummy' ";
+        foreach ($ids as $id) {
+            $query .= "OR `plugins`.`id` = ? ";
+        }
+    
+        $stmt_count = $pdo->prepare($query); 
+        $stmt_count->execute($ids);
+        
+    
+        $count = $stmt_count->fetch();
+    
+        // get total number of pages
+        $pages = ceil($count['n'] / $items);
+        // if user requested a page higher than total of pages, we override it
+        $page = $page > $pages ? $pages : $page;
+        // starting index of the query
+        $start = ($page - 1) * $items;
+        // adds number of pages to array
+        $plugins['info']['pages'] = $pages;
+    
+        // ====== END PAGINATION =====
+    
+        // sorting
+        $sortQuery = '';
+        switch ($sort) {
+            case 'rating':
+                $sortQuery = 'stargazers';
+                break;
+            case 'name':
+                $sortQuery = 'name';
+                break;
+            case 'new':
+            default:
+                $sortQuery = 'submittedAt';
+                break;
+        }
+    
+        $orderQuery = '';
+        switch ($order) {
+            case 'asc':
+                $orderQuery = 'ASC';
+                break;
+            case 'desc':
+            default:
+                $orderQuery = 'DESC';
+                break;
+        }
+    
+
 
     global $pdo;
 
@@ -216,11 +284,21 @@ function listPluginsFromIdArray($ids) {
     foreach ($ids as $id) {
         $query .= "OR `plugins`.`id` = ? ";
     }
-    //$query .= "ORDER BY $sortQuery $orderQuery ";
-    //$query .= "LIMIT ?,? ";
+    $query .= "ORDER BY $sortQuery $orderQuery ";
+    $query .= "LIMIT ?,? ";
     
+
+    // get plugins
     $stmt_list = $pdo->prepare($query); 
-    $stmt_list->execute($ids);
+    if (!empty($owner)) { // this is broken for now
+        $args = [$owner];
+        array_merge($args, $ids);
+        $stmt_list->execute($args);
+    } else {
+        $args = $ids;
+        array_push($args,$start,$items);
+        $stmt_list->execute($args);
+    }
 
     while ($row_plugins = $stmt_list->fetch()) {
 
