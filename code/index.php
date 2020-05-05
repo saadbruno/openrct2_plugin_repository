@@ -22,8 +22,9 @@ $p = preg_replace('/[^0-9]/', '', filter_input(INPUT_GET, 'p', FILTER_SANITIZE_N
 $p = $p ? $p : 1;
 
 switch ($_GET['q1']) {
-    case 'submit':
-        # code...
+    case 'list':
+        require_once("./features/list/index.php");
+
         break;
 
     case 'home':

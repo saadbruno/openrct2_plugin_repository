@@ -1,5 +1,5 @@
 <?php
-function getPluginList($page = 1, $items = 6, $sort = 'submitted', $order = 'desc')
+function getPluginList($page = 1, $items = 8, $sort = 'submitted', $order = 'desc')
 {
 
     global $pdo;
