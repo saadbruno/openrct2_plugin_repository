@@ -51,3 +51,4 @@ import-schema:
 # aliases
 sass: build-sass
 scss: build-sass
+css: build-sass

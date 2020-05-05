@@ -23,15 +23,19 @@
                 <span data-toggle="tooltip" data-placement="bottom" title="Stars on GitHub"><i class="fas fa-star"></i> <?= $plugin['stargazers'] ?></span>
                 <span data-toggle="tooltip" data-placement="bottom" title="Submitted: <?= $plugin['submittedAtRel'] ?>"><i class="fas fa-cloud-upload-alt"></i> <?= $plugin['submittedAtRelShort'] ?></span>
                 <span data-toggle="tooltip" data-placement="bottom" title="Last updated: <?= $plugin['updatedAtRel'] ?>"><i class="fas fa-redo"></i> <?= $plugin['updatedAtRelShort'] ?></span>
-                <span class="tags">
-                    <ul>
-                        <?php
-                        foreach ($plugin['tags'] as $key => $tag) {
-                            echo '<li>' . $tag['tag'] . '</li>';
-                        }
-                        ?>
-                    </ul>
-                </span>
+                <?php if ($plugin['tags']) { ?>
+                    <span class="tags">
+                        <ul>
+                            <?php
+                            foreach ($plugin['tags'] as $tag) {
+                            ?>
+                                <li><a href="/list/?search=<?= urlencode($tag['tag']) ?>"><?= $tag['tag'] ?></a></li>
+                            <?php
+                            }
+                            ?>
+                        </ul>
+                    </span>
+                <?php } ?>
             </div>
         </div>
     </div>

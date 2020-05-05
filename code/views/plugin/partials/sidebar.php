@@ -33,8 +33,10 @@
             <span class="tags">
                 <ul>
                     <?php
-                    foreach ($plugin['tags'] as $key => $tag) {
-                        echo '<li>' . $tag['tag'] . '</li>';
+                    foreach ($plugin['tags'] as $tag) {
+                    ?>
+                        <li><a href="/list/?search=<?= urlencode($tag['tag']) ?>"><?= $tag['tag'] ?></a></li>
+                    <?php
                     }
                     ?>
                 </ul>
