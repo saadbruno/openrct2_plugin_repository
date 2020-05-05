@@ -91,14 +91,20 @@ function drawList($list, $title = 'List', $usePagination = true, $viewMore = '',
         <h2><?= $title ?></h2>
         <div class="plugin-list">
             <?php
-            foreach ($list['data'] as $key => $plugin) {
-                include "views/home/partials/list-item.php";
+            // if for some reason the list is empty (mysql error, or empty seach), we show a feedback message, instead of an error
+            if (!empty($list['data'])) {
+                foreach ($list['data'] as $key => $plugin) {
+                    include "views/home/partials/list-item.php";
+                }
+            } else {
+                echo '<div class="my-3">No results</div>';
             }
+
             ?>
 
         </div>
     <?php 
-    if ($usePagination == true) {
+    if ($usePagination == true && !empty($list['data'])) {
         drawPagination($curr_page, $list['info']['pages']);
     } else if ($usePagination == false && !empty($viewMore)) {
     ?>

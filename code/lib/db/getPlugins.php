@@ -163,3 +163,84 @@ function getPluginDetails($id) {
     return $plugin;
 
 }
+
+function searchPlugins($searchQuery) {
+    // To do: Add pagination, sorting, filtering by author, and other stuff here
+
+    global $pdo;
+
+    $query = "SELECT `id` FROM (
+        SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`owner`,`tags`.`tag`,`users`.`username`
+        FROM `plugins` 
+        LEFT JOIN `tags` 
+        ON `plugins`.`id` = `tags`.`plugin_id` 
+        LEFT JOIN `users`
+        ON `plugins`.`owner` = `users`.`id`
+        WHERE `plugins`.`name` LIKE ?
+        OR `plugins`.`description` LIKE ?
+        OR `users`.`username` LIKE ?
+        OR `tags`.`tag` LIKE ?
+        ORDER BY `plugins`.`submittedAt` DESC
+        ) AS TEMP
+        GROUP BY `TEMP`.`id`";
+
+        $stmt_search = $pdo->prepare($query); 
+
+        $keyword = "%".$searchQuery."%";
+        try {
+            $stmt_search->execute([$keyword,$keyword,$keyword,$keyword]);
+        } catch (Exception $e) {
+          die($e);
+        }
+
+        $ids_array = $stmt_search->fetchAll();
+
+        $ids = [];
+        foreach ($ids_array as $value) {
+            array_push($ids, $value['id']);
+        }
+
+        // runs the other function that gets the list via IDs
+        return listPluginsFromIdArray($ids);
+}
+
+function listPluginsFromIdArray($ids) {
+
+    global $pdo;
+
+    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`, `users`.`username`, `users`.`avatarUrl` ";
+    $query .= "FROM `plugins` ";
+    $query .= "LEFT JOIN `users` ";
+    $query .= "ON `plugins`.`owner` = `users`.`id` ";
+    $query .= "WHERE `plugins`.`id` = 'dummy' ";
+    foreach ($ids as $id) {
+        $query .= "OR `plugins`.`id` = ? ";
+    }
+    //$query .= "ORDER BY $sortQuery $orderQuery ";
+    //$query .= "LIMIT ?,? ";
+    
+    $stmt_list = $pdo->prepare($query); 
+    $stmt_list->execute($ids);
+
+    while ($row_plugins = $stmt_list->fetch()) {
+
+        // get plugin tags
+        $stmt_tags = $pdo->prepare("SELECT `tag` FROM `tags` WHERE `plugin_id` = ? ORDER BY `tags`.`tag` ASC");
+        $stmt_tags->execute([$row_plugins['id']]);
+        $tags = $stmt_tags->fetchAll();
+
+        // sets relative dates for updated and submitted
+        $row_plugins['submittedAtRel'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugins['submittedAt']), 'now');
+        $row_plugins['submittedAtRelShort'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugins['submittedAt']), 'now', 'short');
+        $row_plugins['updatedAtRel'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugins['updatedAt']), 'now');
+        $row_plugins['updatedAtRelShort'] = findTimeAgo(date("Y-m-d H:i:s", $row_plugins['updatedAt']), 'now', 'short');
+
+
+        $plugins['data'][$row_plugins['id']] = $row_plugins;
+        $plugins['data'][$row_plugins['id']]['tags'] = $tags;
+    }
+
+
+    return $plugins;
+
+}

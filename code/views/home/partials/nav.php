@@ -15,9 +15,9 @@
                 <a class="nav-link" href="/list/?sort=rating">Rating</a>
             </li>
         </ul>
-        <form id="nav-search" class="form-inline mt-2 mt-md-0">
+        <form id="nav-search" class="form-inline mt-2 mt-md-0" action="/list/" method="get" >
             <div class="input-group">
-                <input class="form-control input-group-prepend" type="text" placeholder="Search" aria-label="Search">
+                <input class="form-control input-group-prepend" type="text" placeholder="Search" aria-label="Search" name="search" value="<?= $_GET['search']?>">
                 <button class="btn btn-secondary input-group-append" type="submit"><i class="fas fa-search"></i></button>
             </div>
         </form>
