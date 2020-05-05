@@ -22,6 +22,7 @@
 
     <!-- favicons -->
     <link rel="icon" type="image/svg+xml" href="/public/media/img/logo/orct2p-logo-i-c.svg?v=<?= $config['version'] ?>">
+    <meta name="theme-color" content="#2993cf">
 
     <!-- Vendor CSS-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
