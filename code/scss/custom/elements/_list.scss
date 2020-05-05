@@ -60,4 +60,17 @@
         }
 
     }
+
+    .pagination {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: solid 1px var(--gray-3);
+        
+        .page-item {
+            &.disabled {
+                opacity: 0.5;
+            }
+        }
+    }
+
 }

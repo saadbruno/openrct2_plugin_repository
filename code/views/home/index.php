@@ -18,13 +18,19 @@
                 <div class="plugin-list">
                     <?php
 
-                    $list = getPluginList();
+                    $list = getPluginList($p);
 
-                    foreach ($list as $key => $plugin) {
+                    foreach ($list['data'] as $key => $plugin) {
                         include "partials/list-item.php";
                     }
                     ?>
                 </div>
+
+
+                <?php drawPagination($p, $list['info']['pages']) ?>
+
+
+
             </div>
         </div>
 
