@@ -1,0 +1,41 @@
+body {
+    min-height: 100vh;
+    flex-direction: column;
+    display: flex;
+}
+
+main {
+    &.container {
+        margin-top: 2rem;
+    }
+}
+
+
+.tags {
+    ul {
+        display: inline;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        font-size: 0.8rem;
+    }
+
+    li {
+        display: inline-block;
+
+        a {
+
+            color: var(--white);
+            background-color: var(--primary-light);
+            padding: 0.1rem 0.4rem;
+            margin-right: 0.4rem;
+            border-radius: 4px;
+
+
+            &:hover {
+                text-decoration: none;
+                background-color: var(--primary);
+            }
+        }
+    }
+}

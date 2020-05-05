@@ -1,0 +1,14 @@
+@import "fonts",
+        "variables";
+
+@import "general",
+        "elements/header",
+        "elements/navbar",
+        "elements/footer",
+        "elements/list",
+        "elements/form",
+        "elements/plugin-details";
+
+
+// bootstrap
+@import "../vendor/bootstrap-4.4.1/bootstrap.scss";

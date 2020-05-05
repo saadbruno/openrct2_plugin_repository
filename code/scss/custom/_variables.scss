@@ -1,0 +1,35 @@
+$headings-font-family: 'Exo', sans-serif;
+$headings-font-weight: 800;
+
+$font-family-sans-serif: 'Merriweather Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-weight-bold:       800;
+
+$enable-responsive-font-sizes: true;
+
+$primary: #2993cf;
+$body-bg: #dcdfe0;
+$body-color: #2a2d2e;
+
+$theme-colors: (
+  "primary": $primary,
+  "primary-light": lighten($primary, 20),
+  "gray-1": darken($body-bg, 5),
+  "gray-2": darken($body-bg, 10),
+  "gray-3": darken($body-bg, 15),
+  "gray-4": darken($body-bg, 20),
+  "gray-5": darken($body-bg, 30),
+  "gray-6": darken($body-bg, 40),
+  "gray-7": darken($body-bg, 50),
+  "gray-8": darken($body-bg, 60),
+  "gray-9": darken($body-bg, 70),
+  "gray-10": darken($body-bg, 80)  
+);
+
+// these are unchanged from bootstrap. I'm including them here cause I'm gonna use them, and the bootstrap stuff comes after
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+) !default;

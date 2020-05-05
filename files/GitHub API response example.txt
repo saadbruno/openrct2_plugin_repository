@@ -1,0 +1,294 @@
+Array
+(
+    [data] => Array
+        (
+            [repository] => Array
+                (
+                    [id] => MDEwOlJlcG9zaXRvcnkxODM0ODY1MQ==
+                    [name] => OpenRCT2
+                    [url] => https://github.com/OpenRCT2/OpenRCT2
+                    [description] => An open source re-implementation of RollerCoaster Tycoon 2 🎢
+                    [pushedAt] => 2020-05-04T16:48:02Z
+                    [updatedAt] => 2020-05-04T17:41:30Z
+                    [usesCustomOpenGraphImage] => 
+                    [openGraphImageUrl] => https://avatars0.githubusercontent.com/u/8473908?s=400&v=4
+                    [stargazers] => Array
+                        (
+                            [totalCount] => 7940
+                        )
+
+                    [owner] => Array
+                        (
+                            [id] => MDEyOk9yZ2FuaXphdGlvbjg0NzM5MDg=
+                            [login] => OpenRCT2
+                            [avatarUrl] => https://avatars0.githubusercontent.com/u/8473908?v=4
+                            [url] => https://github.com/OpenRCT2
+                        )
+
+                    [readme1] => Array
+                        (
+                            [text] => # OpenRCT2
+                        )
+                    [readme2] => 
+                    [readme3] => 
+                    [readme4] => 
+                    [repositoryTopics] => Array
+                        (
+                            [edges] => Array
+                                (
+                                    [0] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => c
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [1] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => c-plus-plus
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [2] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => game
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [3] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => openrct2
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [4] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => cmake
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [5] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => roller-coaster
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [6] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => xcode
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [7] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => visual-studio
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [8] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => roller-coaster-tycoon
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [9] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => msbuild
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [10] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => windows
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [11] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => linux
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [12] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => multiplayer
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [13] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => server
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [14] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => sdl2
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [15] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => opengl
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [16] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => simulation
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [17] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => cpp
+                                                        )
+
+                                                )
+
+                                        )
+
+                                    [18] => Array
+                                        (
+                                            [node] => Array
+                                                (
+                                                    [topic] => Array
+                                                        (
+                                                            [name] => discord
+                                                        )
+
+                                                )
+
+                                        )
+
+                                )
+
+                        )
+
+                )
+
+        )
+
+)
