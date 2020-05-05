@@ -65,12 +65,25 @@
         margin-top: 1rem;
         padding-top: 1rem;
         border-top: solid 1px var(--gray-3);
-        
+
         .page-item {
             &.disabled {
                 opacity: 0.5;
             }
         }
     }
+
+    .view-more {
+        padding: 1rem 0;
+        margin-top: 1rem;
+        border-top: solid 1px var(--gray-3);
+
+        a {
+            display: block;
+            text-align: right;
+        }
+    }
+
+
 
 }

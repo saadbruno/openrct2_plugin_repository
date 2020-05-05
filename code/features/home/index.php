@@ -7,7 +7,8 @@ $meta['description'] = 'A community-driven directory for OpenRCT2 Plug-ins';
 $nav['active'] = 'home';
 
 // gets list of plugins from database
-$list = getPluginList($p);
+$list_new = getPluginList($p, 3, 'new');
+$list_rating = getPluginList($p, 3, 'rating');
 
 // loads view
 include_once("views/home/index.php");

@@ -8,11 +8,11 @@
             <li class="nav-item <?= $nav['active'] == 'home' ? 'active' : '' ?>">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link <?= $nav['active'] == 'new' ? 'active' : '' ?>" href="/list/?sort=new">New</a>
+            <li class="nav-item <?= $nav['active'] == 'new' ? 'active' : '' ?>">
+                <a class="nav-link" href="/list/?sort=new">New</a>
             </li>
-            <li class="nav-item" data-toggle="tooltip" data-placement="bottom" title="Coming soon!">
-                <a class="nav-link disabled" href="/list/?sort=rating">Rating</a>
+            <li class="nav-item <?= $nav['active'] == 'rating' ? 'active' : '' ?>">
+                <a class="nav-link" href="/list/?sort=rating">Rating</a>
             </li>
         </ul>
         <form class="form-inline mt-2 mt-md-0">

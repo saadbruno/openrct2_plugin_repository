@@ -1,8 +1,15 @@
 <?php
-function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = false)
-{
+
+// PAGINATION
+
+function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = false) {
     // if requested page is higher than the total number of pages, we override it
     $curr_page = $curr_page > $total_pages ? $total_pages : $curr_page;
+
+    echo '<pre>';
+    echo $curr_page;
+    echo $total_pages;
+    echo '</pre>';
 
     // keep all query strings when switching pages (except for q1 to q3, and p)
     $query = array_merge($query, $_GET);
@@ -10,7 +17,7 @@ function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = fa
     // query string. THis will be used, in the future, to keep other query strings while changing pages (things like sorting and so on)
     $queryString = http_build_query($query);
 
-?>
+    ?>
     <nav aria-label="Pagination for newest plug-ins">
         <ul class="pagination pagination-sm justify-content-center">
 
@@ -74,5 +81,33 @@ function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = fa
             </li>
         </ul>
     </nav>
-<?php
+    <?php
+}
+
+function drawList($list, $title = 'List', $usePagination = true, $viewMore = '', $curr_page='1') {
+    ?>
+    <div class="col-12 list-container">
+        <h2><?= $title ?></h2>
+        <div class="plugin-list">
+            <?php
+            foreach ($list['data'] as $key => $plugin) {
+                include "views/home/partials/list-item.php";
+            }
+            ?>
+
+        </div>
+    <?php 
+    if ($usePagination == true) {
+        drawPagination($curr_page, $list['info']['pages']);
+    } else if ($usePagination == false && !empty($viewMore)) {
+    ?>
+        <div class="footer view-more">
+            <a href="/list/?sort=<?= $viewMore ?>">View more <i class="fas fa-arrow-right"></i></a>
+        </div>
+    <?php
+    }
+    
+    ?>
+    </div>
+    <?php
 }

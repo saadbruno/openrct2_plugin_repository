@@ -1,6 +1,11 @@
 <?php
-function getPluginList($page = 1, $items = 8, $sort = 'submitted', $order = 'desc')
+function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc')
 {
+
+    // if there's a sort get, we override the one sent through the function
+    if ($_GET['sort']) {
+        $sort = $_GET['sort'];
+    }
 
     global $pdo;
     // creates plugins array
@@ -20,14 +25,30 @@ function getPluginList($page = 1, $items = 8, $sort = 'submitted', $order = 'des
 
     // ====== END PAGINATION =====
 
+    // sorting
+    $sortQuery = '';
+    switch ($sort) {
+        case 'rating':
+            $sortQuery = 'stargazers';
+            break;
+        case 'name':
+            $sortQuery = 'name';
+            break;
+        case 'new':
+        default:
+            $sortQuery = 'submittedAt';
+            break;
+    }
+
     // get plugins
     $stmt_plugins = $pdo->prepare("SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`, `users`.`username`, `users`.`avatarUrl`
-                                FROM `plugins`
-                                LEFT JOIN `users`
-                                ON `plugins`.`owner` = `users`.`id`
-                                ORDER BY `plugins`.`submittedAt` DESC
-                                LIMIT ?,?");
-    $stmt_plugins->execute([$start, $items]);
+                                    FROM `plugins`
+                                    LEFT JOIN `users`
+                                    ON `plugins`.`owner` = `users`.`id`
+                                    ORDER BY $sortQuery DESC
+                                    LIMIT ?,?"
+                                   ); // i know you shouldn't put variables directly in the statement. But it doesn't seem to work putting it in hte execute() for the ORDER BY.
+    $stmt_plugins->execute([$start,$items]);
 
     while ($row_plugins = $stmt_plugins->fetch()) {
 
@@ -45,7 +66,6 @@ function getPluginList($page = 1, $items = 8, $sort = 'submitted', $order = 'des
 
         $plugins['data'][$row_plugins['id']] = $row_plugins;
         $plugins['data'][$row_plugins['id']]['tags'] = $tags;
-
     }
 
     return $plugins;
