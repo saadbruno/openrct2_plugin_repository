@@ -4,6 +4,8 @@
 $meta['title'] = 'OpenRCT2 Plug-ins Directory';
 $meta['description'] = 'A community-driven directory for OpenRCT2 Plug-ins';
 
+$nav['active'] = 'home';
+
 // gets list of plugins from database
 $list = getPluginList($p);
 

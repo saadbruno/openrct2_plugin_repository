@@ -27,7 +27,7 @@
                 </div>
 
 
-                <?php drawPagination($p, $list['info']['pages']) ?>
+                <?php drawPagination($p, $list['info']['pages'], ['sort'=>'new']) ?>
 
 
 

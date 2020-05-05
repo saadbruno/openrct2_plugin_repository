@@ -1,11 +1,14 @@
 <?php
-function drawPagination($curr_page = 1, $total_pages, $query = '', $compact = false)
+function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = false)
 {
     // if requested page is higher than the total number of pages, we override it
     $curr_page = $curr_page > $total_pages ? $total_pages : $curr_page;
 
+    // keep all query strings when switching pages (except for q1 to q3, and p)
+    $query = array_merge($query, $_GET);
+    unset($query['p'], $query['q1'], $query['q2'], $query['q3']);
     // query string. THis will be used, in the future, to keep other query strings while changing pages (things like sorting and so on)
-    $queryString = '';
+    $queryString = http_build_query($query);
 
 ?>
     <nav aria-label="Pagination for newest plug-ins">
