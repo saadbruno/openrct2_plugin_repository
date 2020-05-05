@@ -22,6 +22,7 @@
 
     <!-- favicons -->
     <link rel="icon" type="image/svg+xml" href="/public/media/img/logo/orct2p-logo-i-c.svg?v=<?= $config['version'] ?>">
+    <link rel="mask-icon" href="/public/media/img/logo/orct2p-logo-i-c.svg?v=<?= $config['version'] ?>" color="#2993cf">
     <meta name="theme-color" content="#2993cf">
 
     <!-- Vendor CSS-->
