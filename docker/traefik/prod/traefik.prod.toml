@@ -18,19 +18,13 @@ logLevel="DEBUG"
             users = ["admin:$apr1$vngADTJE$ALEsBhnVuvYyyqXWtke3P0"]
 
 [acme]
-    email = "mailbox@openrct2plugins.test"
+    email = "saadbruno@gmail.com"
     storage = "acme.json"
     entryPoint = "https"
     [[acme.domains]]
-        main = "openrct2plugins.test"
+        main = "openrct2plugins.org"
         sans = [
-            "www.openrct2plugins.test",
-            "www.traefik.openrct2plugins.test", 
-            "www.pma.openrct2plugins.test", 
-            "www.portainer.openrct2plugins.test",
-            "traefik.openrct2plugins.test", 
-            "pma.openrct2plugins.test", 
-            "portainer.openrct2plugins.test"
+            "www.openrct2plugins.org"
         ]
     [acme.httpChallenge]
         entryPoint = "http"
@@ -40,7 +34,7 @@ logLevel="DEBUG"
     dashboard = true
 
 [docker]
-    domain = "openrct2plugins.test"
+    domain = "openrct2plugins.org"
     watch = true
     exposedByDefault = true
     swarmMode = false

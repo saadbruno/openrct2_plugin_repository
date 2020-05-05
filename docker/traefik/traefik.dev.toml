@@ -12,7 +12,7 @@ logLevel="DEBUG"
     dashboard = true
 
 [docker]
-    domain = "openrct2plugins.test"
+    domain = "openrct2plugins.org"
     watch = true
     exposedByDefault = true
     swarmMode = false
