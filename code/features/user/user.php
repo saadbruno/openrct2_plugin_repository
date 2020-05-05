@@ -20,4 +20,4 @@ $meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/use
 
 $list['info']['title'] = $user['username'] . "'s plug-ins";
 // loads view
-include_once("views/user/index.php");
+include_once("views/user/user.php");

@@ -41,4 +41,4 @@ if (!empty($_GET['search'])) {
 }
 
 // loads view
-include_once("views/list/index.php");
+include_once("views/list/list.php");

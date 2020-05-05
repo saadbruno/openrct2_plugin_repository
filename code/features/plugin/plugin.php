@@ -21,4 +21,4 @@ $Parsedown = new Parsedown();
 $Parsedown->setSafeMode(true);
 
 // loads view
-include_once("views/plugin/index.php");
+include_once("views/plugin/plugin.php");

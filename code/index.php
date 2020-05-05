@@ -30,21 +30,21 @@ $p = $p ? $p : 1;
 
 switch ($_GET['q1']) {
     case 'list':
-        require_once("./features/list/index.php");
+        require_once("./features/list/list.php");
         break;
 
     case 'user':
-        require_once("./features/user/index.php");
+        require_once("./features/user/user.php");
         break;
 
     case 'plugin':
-        require_once("./features/plugin/index.php");
+        require_once("./features/plugin/plugin.php");
         break;
 
     case 'home':
     default:
 
-        require_once("./features/home/index.php");
+        require_once("./features/home/home.php");
 
         break;
 }
