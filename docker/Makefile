@@ -39,6 +39,9 @@ manage-php:
 	docker exec -it orct2p_php-fpm bash
 manage-nginx:
 	docker exec -it orct2p_nginx bash
+manage-mysql:
+	docker exec -it orct2p_mysql mysql -u admin -p orct2p
+
 
 # logs
 logs:
@@ -51,14 +54,14 @@ logs-mysql:
 	docker-compose logs -f mysql
 logs-traefik:
 	docker-compose logs -f traefik
+
 # database management
 import-schema:
 	cat ./mysql/orct2p.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
-
-# aliases
-sass: build-sass
-scss: build-sass
-css: build-sass
+backup-mysql:
+	docker exec -it orct2p_mysql mysqldump -u admin -p1h030PUVhZLCsM orct2p > ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+restore-mysql:
+	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 
 #### PRODUCTION ####
 build-traefik-prod:
@@ -97,3 +100,16 @@ redeploy-mysql-prod: build-mysql-prod stop-mysql-prod clean run-mysql-prod
 redeploy-nginx-prod: build-nginx-prod stop-nginx-prod clean run-nginx-prod
 
 redeploy-web-prod: redeploy-nginx-prod redeploy-traefik-prod
+
+backup-mysql-prod:
+	docker exec -it orct2p_mysql mysqldump -u admin -p$(P) orct2p > ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+restore-mysql-prod:
+	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p$(P) orct2p 
+
+# aliases
+sass: build-sass
+scss: build-sass
+css: build-sass
+manage-db: manage-mysql
+backup-db: backup-mysql
+restore-db: restore-mysql

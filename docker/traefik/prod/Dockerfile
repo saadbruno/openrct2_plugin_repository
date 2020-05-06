@@ -4,6 +4,8 @@ COPY --from=traefik:v1.7.24-alpine /usr/share/zoneinfo /usr/share/
 COPY --from=traefik:v1.7.24-alpine /usr/local/bin/traefik /
 
 EXPOSE 4000
+EXPOSE 8085
+
 VOLUME ["/tmp"]
 ENTRYPOINT ["/traefik"]
 

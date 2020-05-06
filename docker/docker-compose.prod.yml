@@ -11,10 +11,6 @@ services:
         build:
             context: .
             dockerfile: ./traefik/prod/Dockerfile
-        labels:
-            - traefik.backend=traefik
-            - traefik.frontend.rule=Host:www.traefik.${DOMAIN_NAME},traefik.${DOMAIN_NAME}
-            - traefik.port=8080
         networks:
             - proxy.openrct2plugins
     nginx:
