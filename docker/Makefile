@@ -70,6 +70,8 @@ build-mysql-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache mysql
 build-nginx-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache nginx
+build-php-prod:
+	docker-compose -f docker-compose.prod.yml build --no-cache php
 build-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache
 
@@ -79,6 +81,8 @@ run-mysql-prod:
 	docker-compose -f docker-compose.prod.yml up -d mysql
 run-nginx-prod:
 	docker-compose -f docker-compose.prod.yml up -d nginx
+run-php-prod:
+	docker-compose -f docker-compose.prod.yml up -d php
 run-prod:
 	docker-compose -f docker-compose.prod.yml up -d
 
@@ -88,6 +92,8 @@ stop-mysql-prod:
 	docker-compose -f docker-compose.prod.yml stop mysql
 stop-nginx-prod:
 	docker-compose -f docker-compose.prod.yml stop nginx
+stop-php-prod:
+	docker-compose -f docker-compose.prod.yml stop php
 stop-prod:
 	docker-compose -f docker-compose.prod.yml down
 
@@ -99,7 +105,7 @@ redeploy-mysql-prod: build-mysql-prod stop-mysql-prod clean run-mysql-prod
 
 redeploy-nginx-prod: build-nginx-prod stop-nginx-prod clean run-nginx-prod
 
-redeploy-web-prod: redeploy-nginx-prod redeploy-traefik-prod
+redeploy-web-prod: redeploy-nginx-prod redeploy-php-prod
 
 backup-mysql-prod:
 	docker exec -it orct2p_mysql mysqldump -u admin -p$(P) orct2p > ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
