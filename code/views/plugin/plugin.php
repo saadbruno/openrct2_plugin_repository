@@ -28,7 +28,7 @@
                     if (empty($plugin['readme'])) {
                         echo '<i class="no-description">No description provided</i>';
                     } else {
-                        $Parsedown->text(stripslashes( $plugin['readme'] ));
+                        echo $Parsedown->text(stripslashes( $plugin['readme'] ));
                     }
                     ?>
                 </div>
