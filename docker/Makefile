@@ -105,6 +105,8 @@ redeploy-mysql-prod: build-mysql-prod stop-mysql-prod clean run-mysql-prod
 
 redeploy-nginx-prod: build-nginx-prod stop-nginx-prod clean run-nginx-prod
 
+redeploy-php-prod: build-php-prod stop-php-prod clean run-php-prod
+
 redeploy-web-prod: redeploy-nginx-prod redeploy-php-prod
 
 backup-mysql-prod:
