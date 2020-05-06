@@ -218,16 +218,5 @@ $result['redirect'] = $redirect;
 die(json_encode($result));
 
 // debugging code
-if ($_ENV['DEBUG']) {
-
-    echo "<!--";
-
-    echo "\n\nURL debugging:\n";
-    print_r($url);
-
-    echo "\n\nGitHub API response:\n";
-    print_r($result);
-
-    echo "-->";
-}
-
+debug($url, "URL Debugging");
+debug($result, "GitHub API response");

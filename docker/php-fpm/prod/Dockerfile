@@ -1,4 +1,4 @@
-FROM php:7.2.6-fpm
+FROM php:7.4-fpm
 
 COPY /code /var/www/code
 COPY docker/php-fpm/php-ini-overrides.ini /usr/local/etc/php/conf.d/99-overrides.ini

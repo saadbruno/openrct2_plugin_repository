@@ -109,12 +109,7 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $o
         $plugins['data'][$row_plugins['id']]['tags'] = $tags;
     }
 
-    if ($_ENV['DEBUG']) {
-        echo '<!--';
-        echo "\n\nDb query result: \n";
-        print_r($plugins);
-        echo '-->';
-    }
+    debug($plugins, "DB query result");
 
     return $plugins;
 }
@@ -153,12 +148,7 @@ function getPluginDetails($id) {
     $plugin['tags'] = $tags;
 
 
-    if ($_ENV['DEBUG']) {
-        echo '<!--';
-        echo "\n\nDb query result: \n";
-        // print_r($plugin);
-        echo '-->';
-    }
+    debug($plugin, "DB query result");
 
     return $plugin;
 
