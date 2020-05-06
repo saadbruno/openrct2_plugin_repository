@@ -24,7 +24,13 @@
 
             <div class="col-12 col-md-9 content">
                 <div class="description">
-                    <?= $Parsedown->text(stripslashes( $plugin['readme'] )) ?>
+                    <?php
+                    if (empty($plugin['readme'])) {
+                        echo '<i class="no-description">No description provided</i>';
+                    } else {
+                        $Parsedown->text(stripslashes( $plugin['readme'] ));
+                    }
+                    ?>
                 </div>
             </div>
 
