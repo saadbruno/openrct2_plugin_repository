@@ -86,7 +86,7 @@ build-mysql-prod:
 build-nginx-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache nginx
 build-php-prod:
-	docker-compose -f docker-compose.prod.yml build --no-cache php
+	docker-compose -f docker-compose.prod.yml build --no-cache php-fpm
 build-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache
 
@@ -97,7 +97,7 @@ run-mysql-prod:
 run-nginx-prod:
 	docker-compose -f docker-compose.prod.yml up -d nginx
 run-php-prod:
-	docker-compose -f docker-compose.prod.yml up -d php
+	docker-compose -f docker-compose.prod.yml up -d php-fpm
 run-prod:
 	docker-compose -f docker-compose.prod.yml up -d
 
@@ -108,7 +108,7 @@ stop-mysql-prod:
 stop-nginx-prod:
 	docker-compose -f docker-compose.prod.yml stop nginx
 stop-php-prod:
-	docker-compose -f docker-compose.prod.yml stop php
+	docker-compose -f docker-compose.prod.yml stop php-fpm
 stop-prod:
 	docker-compose -f docker-compose.prod.yml down
 
