@@ -155,7 +155,7 @@ function getPluginDetails($id) {
 }
 
 function searchPlugins($searchQuery,$page = 1, $items = 8, $sort = 'new', $order = 'desc', $owner ='') {
-    // To do: Add pagination, sorting, filtering by author, and other stuff here
+    // To do: Add filtering by author, and other stuff here
 
     global $pdo;
 
@@ -195,6 +195,13 @@ function searchPlugins($searchQuery,$page = 1, $items = 8, $sort = 'new', $order
 }
 
 function listPluginsFromIdArray($ids,$page = 1, $items = 8, $sort = 'new', $order = 'desc', $owner ='') {
+
+        debug($ids, 'Listing plugins with these IDs:');
+
+        // if there are no IDs, we return an empty array
+        if (empty($ids)) {
+            return $plugins = [];
+        }
 
         // if there's a sort get, we override the one sent through the function
         if ($_GET['sort']) {
