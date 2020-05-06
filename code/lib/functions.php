@@ -23,6 +23,7 @@ function graphql_query(string $endpoint, string $query, array $variables = [], ?
     return json_decode($data, true);
 }
 
+// relative time
 function findTimeAgo($past, $now = "now", $length = "long")
 {
     // sets the default timezone if required
@@ -208,5 +209,47 @@ function findTimeAgo($past, $now = "now", $length = "long")
         return $timeAgo;
     } else {
         return $timeAgo . " ago";
+    }
+}
+
+//Logging to terminal
+// this requires the "DEBUG=1" in the /docker/.env file
+// messages here will be readable by running `make logs-php`
+function debug($message, $title = 'DEBUG', $location = 'logs')
+{
+    // we only wanna print if debug is set in the .env
+    if ($_ENV['DEBUG'] != 1) {
+        return;
+    }
+
+    // converts arrays and objects to string
+    if (!is_string($message)) {
+        $message = print_r($message, 1);
+    }
+
+    // truncate to 8k characters
+    substr($message, 8000);
+
+
+    // adds formatting
+    $message = "\n:\n========== $title ==========\n $message\n:\n";
+
+    switch ($location) {
+        case 'console':
+            // logs to javascript console
+            $message = json_encode($message);
+            echo '<script>console.log(' . $message . ')</script>';
+            break;
+        case 'html':
+            // display as an html comment
+            echo "<!--\n" . $message . "\n-->";
+            break;
+        case 'logs':
+        default:
+            // logs to terminal
+            $stdout = fopen('php://stdout', 'w');
+            fwrite($stdout, $message);
+            fclose($stdout);
+            break;
     }
 }

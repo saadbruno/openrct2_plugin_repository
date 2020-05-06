@@ -9,6 +9,10 @@ build-network:
 	docker network create proxy.openrct2plugins
 build-containers:
 	docker-compose build
+build-nginx:
+	docker-compose build nginx
+build-php:
+	docker-compose build php-fpm
 build-sass:
 	docker run --rm  -v `pwd`/../code/scss:/usr/src/app/scss  -v `pwd`/../code/public/styles:/usr/src/app/css cscheide/node-sass node-sass -r -o /usr/src/app/css/ /usr/src/app/scss/custom/
 
@@ -16,8 +20,11 @@ build-sass:
 run:
 	docker-compose up -d
 run-nginx:
-	docker-compose start nginx
-
+	docker-compose up -d nginx
+run-php:
+	docker-compose up -d php-fpm
+run-mysql:
+	docker-compose up -d mysql
 # Stop containers
 stop:
 	docker-compose down
@@ -25,14 +32,22 @@ stop-nginx:
 	docker-compose stop nginx
 stop-sass:
 	docker-compose stop nginx
-
+stop-php:
+	docker-compose stop php-fpm
+stop-mysql:
+	docker-compose stop mysql
 # Clean and redeploy
 clean:
 	docker system prune -f
-
+prune-db:
+	rm -rf ../mysql
 redeploy: stop clean build-network build run
 
+redeploy-web: stop-nginx stop-php clean build-nginx build-php run-nginx run-php
+
 restart-nginx: stop-nginx run-nginx
+
+redeploy-mysql: stop-mysql clean run-mysql
 
 # Attach to command line inside container
 manage-php:

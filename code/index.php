@@ -49,22 +49,9 @@ switch ($_GET['q1']) {
         break;
 }
 
-
-
-?>
-
-<!-- 
-<?php
-if ($_ENV['DEBUG']) {
-    echo "DB status: " . $db_status;
-    echo "\n\n_GET: \n";
-    print_r($_GET);
-    echo "\n\n_POST: \n";
-    print_r($_POST);
-    echo "\n\n_COOKIE: \n";
-    print_r($_COOKIE);
-    echo "\n\n_ENV: \n";
-    print_r($_ENV);
-}
-?>
--->
+// debugging
+debug($_GET, 'GET');
+// debug($_ENV, 'ENV');
+// debug($_POST, 'POST');
+// debug($db_status, 'DB status');
+// debug($_COOKIE, 'COOKIE');
