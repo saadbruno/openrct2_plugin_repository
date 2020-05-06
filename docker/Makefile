@@ -74,7 +74,7 @@ logs-traefik:
 import-schema:
 	cat ./mysql/orct2p.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 backup-mysql:
-	docker exec -it orct2p_mysql mysqldump -u admin -p1h030PUVhZLCsM orct2p > ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+	docker exec -it orct2p_mysql mysqldump -u admin -p1h030PUVhZLCsM orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
 restore-mysql:
 	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 
@@ -125,7 +125,7 @@ redeploy-php-prod: build-php-prod stop-php-prod clean run-php-prod
 redeploy-web-prod: redeploy-nginx-prod redeploy-php-prod
 
 backup-mysql-prod:
-	docker exec -it orct2p_mysql mysqldump -u admin -p$(P) orct2p > ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+	docker exec -it orct2p_mysql mysqldump -u admin -p$(P) orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
 restore-mysql-prod:
 	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p$(P) orct2p 
 
