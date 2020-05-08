@@ -39,6 +39,10 @@ query {
       updatedAt
       usesCustomOpenGraphImage
       openGraphImageUrl
+      licenseInfo {
+        nickname
+        url 
+      }
       stargazers {
         totalCount
       }
