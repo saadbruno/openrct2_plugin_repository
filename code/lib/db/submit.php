@@ -124,57 +124,81 @@ GRAPHQL;
   $readme .= $result['data']['repository']['readme4']['text'];
 
   // PLUGINS db insert
-  $sql = "INSERT INTO `plugins`
-        (`id`, `name`, `url`, `description`, `submittedAt`, `updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`, `licenseName`, `licenseUrl`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ON DUPLICATE KEY UPDATE
-        `name` = ?,
-        `url` = ?, 
-        `description` = ?, 
-        `submittedAt` = ?, 
-        `updatedAt` = ?,
-        `usesCustomOpenGraphImage` = ?,
-        `thumbnail` = ?,
-        `stargazers` = ?,
-        `owner` = ?,
-        `readme` = ?,
-        `licenseName` = ?,
-        `licenseUrl` = ?
-        ;";
+  $sql = "INSERT INTO `plugins` (`id`, `name`, `url`, `description`, ";
+  if($skipDate == false) {
+    $sql .= "`submittedAt`, ";
+  }
+  $sql .= "`updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`, `licenseName`, `licenseUrl`) ";
+  $sql .= "VALUES (?,?,?,?,";
+  if($skipDate == false) {
+    $sql .= "?,";
+  }
+  $sql .= "?,?,?,?,?,?,?,?) ";
+  $sql .= "ON DUPLICATE KEY UPDATE ";
+  $sql .= "`name` = ?, ";
+  $sql .= "`url` = ?,  ";
+  $sql .= "`description` = ?,  ";
+  if($skipDate == false) {
+    $sql .= "`submittedAt` = ?,  ";
+  }
+  $sql .= "`updatedAt` = ?, ";
+  $sql .= "`usesCustomOpenGraphImage` = ?, ";
+  $sql .= "`thumbnail` = ?, ";
+  $sql .= "`stargazers` = ?, ";
+  $sql .= "`owner` = ?, ";
+  $sql .= "`readme` = ?, ";
+  $sql .= "`licenseName` = ?, ";
+  $sql .= "`licenseUrl` = ? ";
+  $sql .= ";";
+
+  // builds the arguments for the query execution (it uses the array_push cause we have some if/elses in there)
+  $args = [];
+
+  array_push($args, $result['data']['repository']['id']);
+  array_push($args, $result['data']['repository']['name']);
+  array_push($args, $result['data']['repository']['url']);
+  array_push($args, $result['data']['repository']['description']);
+  if($skipDate == false) {
+    array_push($args, $submittedAt);
+  }
+  array_push($args, $updatedAt);
+  array_push($args, $usesOGImg);
+  array_push($args, $result['data']['repository']['openGraphImageUrl']);
+  array_push($args, $result['data']['repository']['stargazers']['totalCount']);
+  array_push($args, $result['data']['repository']['owner']['id']);
+  array_push($args, $readme);
+  array_push($args, $license);
+  array_push($args, $result['data']['repository']['licenseInfo']['url']);
+  array_push($args, $result['data']['repository']['name']);
+  array_push($args, $result['data']['repository']['url']);
+  array_push($args, $result['data']['repository']['description']);
+  if($skipDate == false) {
+    array_push($args, $submittedAt);
+  }
+  array_push($args, $updatedAt);
+  array_push($args, $usesOGImg);
+  array_push($args, $result['data']['repository']['openGraphImageUrl']);
+  array_push($args, $result['data']['repository']['stargazers']['totalCount']);
+  array_push($args, $result['data']['repository']['owner']['id']);
+  array_push($args, $readme);
+  array_push($args, $license);
+  array_push($args, $result['data']['repository']['licenseInfo']['url']);
+
+  debug($sql, 'QUERY');
+  // debug($args, 'QUERY ARGS');
+
   try {
-    $pdo->prepare($sql)->execute([
-      $result['data']['repository']['id'],
-      $result['data']['repository']['name'],
-      $result['data']['repository']['url'],
-      $result['data']['repository']['description'],
-      $submittedAt,
-      $updatedAt,
-      $usesOGImg,
-      $result['data']['repository']['openGraphImageUrl'],
-      $result['data']['repository']['stargazers']['totalCount'],
-      $result['data']['repository']['owner']['id'],
-      $readme,
-      $license,
-      $result['data']['repository']['licenseInfo']['url'],
-      $result['data']['repository']['name'],
-      $result['data']['repository']['url'],
-      $result['data']['repository']['description'],
-      $submittedAt,
-      $updatedAt,
-      $usesOGImg,
-      $result['data']['repository']['openGraphImageUrl'],
-      $result['data']['repository']['stargazers']['totalCount'],
-      $result['data']['repository']['owner']['id'],
-      $readme,
-      $license,
-      $result['data']['repository']['licenseInfo']['url']
-    ]);
+    $pdo->prepare($sql)->execute($args);
   } catch (Exception $e) {
-    header('HTTP/1.1 500 Internal Server Error');
     header('Content-Type: application/json; charset=UTF-8');
     $result = array();
     $result['status'] = 'error';
-    $result['message'] = 'Error when adding plugin';
+    $result['message'] = 'Error when adding plugin ';
+
+    if ($_ENV['DEBUG'] == 1) {
+      $result['message'] .= $e;
+    }
+
     die(json_encode($result));
   }
 
