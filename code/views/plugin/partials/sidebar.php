@@ -24,23 +24,35 @@
             <i class="fas fa-cloud-upload-alt"></i> <?= $plugin['submittedAtRel'] ?>
 
             <h6>Updated:</h6>
-            <i class="fas fa-redo"></i> <?= $plugin['updatedAtRel'] ?></span>
+            <i class="fas fa-redo"></i> <?= $plugin['updatedAtRel'] ?>
 
             <h6>Stars:</h6>
-            <i class="fas fa-star"></i> <?= $plugin['stargazers'] ?></span>
+            <i class="fas fa-star"></i> <?= $plugin['stargazers'] ?>
 
             <h6>Tags:</h6>
             <span class="tags">
-                <ul>
-                    <?php
-                    foreach ($plugin['tags'] as $tag) {
-                    ?>
-                        <li><a href="/list/?search=<?= urlencode($tag['tag']) ?>"><?= $tag['tag'] ?></a></li>
-                    <?php
-                    }
-                    ?>
-                </ul>
+                <?php if ($plugin['tags']) { ?>
+                    <ul>
+                        <?php
+                        foreach ($plugin['tags'] as $tag) {
+                        ?>
+                            <li><a href="/list/?search=<?= urlencode($tag['tag']) ?>"><?= $tag['tag'] ?></a></li>
+                        <?php
+                        }
+                        ?>
+                    </ul>
+                <?php } else { ?>
+                    <i class="no-description">No tags found</i>
+                <?php } ?>
             </span>
+
+            <h6>License:</h6>
+            <i class="fas fa-balance-scale"></i>
+            <?php if ($plugin['licenseName']) { ?>
+                <a href="<?= $plugin['licenseUrl'] ?>" target="_blank" rel="noopener noreferrer"> <?= $plugin['licenseName'] ?> </a>
+            <?php } else { ?>
+                <i class="no-description">No license found</i>
+            <?php } ?>
 
             <h6>Links:</h6>
             <span class="links">
