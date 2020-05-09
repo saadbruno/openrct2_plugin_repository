@@ -41,7 +41,9 @@ query {
       openGraphImageUrl
       licenseInfo {
         nickname
-        url 
+        url
+        name
+        spdxId
       }
       stargazers {
         totalCount
@@ -87,6 +89,8 @@ query {
 GRAPHQL;
 $result = graphql_query('https://api.github.com/graphql', $gitQuery, [], $_ENV['GITHUB_TOKEN']);
 
+debug($result, 'Raw GitHub API result');
+
 // converts the timestamp
 $updatedAt =  date("U",strtotime($result['data']['repository']['updatedAt']));
 $submittedAt = time();
@@ -98,6 +102,17 @@ if ($result['data']['repository']['usesCustomOpenGraphImage'] == 1) {
   $usesOGImg = 0;
 }
 
+// deals with License inconsistencies
+$license = $result['data']['repository']['licenseInfo']['nickname'];
+// if there's no nickname, use the spdxId
+if(empty($license)) {
+  $license = $result['data']['repository']['licenseInfo']['spdxId'];
+}
+// if the spdxId is "NOASSERTION", then use the actual name
+if($license == 'NOASSERTION') {
+  $license = $result['data']['repository']['licenseInfo']['name'];
+} 
+
 // Appends all the 4 readme checks. Since most likely only 1 of them will have any text, we can just append them all. Easier than doing a bunch of if/ elses
 $readme = $result['data']['repository']['readme1']['text'];
 $readme .= $result['data']['repository']['readme2']['text'];
@@ -106,8 +121,8 @@ $readme .= $result['data']['repository']['readme4']['text'];
 
 // PLUGINS db insert
 $sql = "INSERT INTO `plugins`
-        (`id`, `name`, `url`, `description`, `submittedAt`, `updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        (`id`, `name`, `url`, `description`, `submittedAt`, `updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`, `licenseName`, `licenseUrl`) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         ON DUPLICATE KEY UPDATE
         `name` = ?,
         `url` = ?, 
@@ -118,7 +133,9 @@ $sql = "INSERT INTO `plugins`
         `thumbnail` = ?,
         `stargazers` = ?,
         `owner` = ?,
-        `readme` = ?
+        `readme` = ?,
+        `licenseName` = ?,
+        `licenseUrl` = ?
         ;";
 try {
     $pdo->prepare($sql)->execute([
@@ -133,6 +150,8 @@ try {
         $result['data']['repository']['stargazers']['totalCount'],
         $result['data']['repository']['owner']['id'],
         $readme,
+        $license,
+        $result['data']['repository']['licenseInfo']['url'],
         $result['data']['repository']['name'],
         $result['data']['repository']['url'],
         $result['data']['repository']['description'],
@@ -142,7 +161,9 @@ try {
         $result['data']['repository']['openGraphImageUrl'],
         $result['data']['repository']['stargazers']['totalCount'],
         $result['data']['repository']['owner']['id'],
-        $readme
+        $readme,
+        $license,
+        $result['data']['repository']['licenseInfo']['url']
     ]);
 } catch (Exception $e) {
     header('HTTP/1.1 500 Internal Server Error');
