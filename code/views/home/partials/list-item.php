@@ -23,7 +23,16 @@
                 <span data-toggle="tooltip" data-placement="bottom" title="Stars on GitHub"><i class="fas fa-star"></i> <?= $plugin['stargazers'] ?></span>
                 <span data-toggle="tooltip" data-placement="bottom" title="Submitted: <?= $plugin['submittedAtRel'] ?>"><i class="fas fa-cloud-upload-alt"></i> <?= $plugin['submittedAtRelShort'] ?></span>
                 <span data-toggle="tooltip" data-placement="bottom" title="Last updated: <?= $plugin['updatedAtRel'] ?>"><i class="fas fa-redo"></i> <?= $plugin['updatedAtRelShort'] ?></span>
-                <?php if ($plugin['tags']) { ?>
+
+                <?php if ($plugin['licenseName']) { ?>
+                    <span data-toggle="tooltip" data-placement="bottom" title="License">
+                        <i class="fas fa-balance-scale"></i>
+                        <?= $plugin['licenseName'] ?>
+                    </span>
+                <?php
+                }
+                if ($plugin['tags']) {
+                ?>
                     <span class="tags">
                         <ul>
                             <?php

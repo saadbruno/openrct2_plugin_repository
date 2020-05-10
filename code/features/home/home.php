@@ -2,7 +2,8 @@
 
 // if a plugin was submitted
 if (isset($_POST['githubUrl'])) {
-    include_once "./lib/db/submit.php";
+    $githubUrl = filter_input(INPUT_POST, 'githubUrl', FILTER_SANITIZE_URL);
+    savePlugin($githubUrl);
 }
 
 $nav['active'] = 'home';

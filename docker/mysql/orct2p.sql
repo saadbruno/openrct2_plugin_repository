@@ -14,6 +14,8 @@ CREATE TABLE `plugins` (
   `stargazers` int(12) NOT NULL DEFAULT '0' COMMENT 'How many stars the repo has',
   `owner` varchar(64) NOT NULL DEFAULT '0' COMMENT 'GitHub owner user''s ID.\r\nFallbacks to a default user',
   `readme` text COMMENT 'Plug-in description, pulled from repo''s readme',
+  `licenseName` varchar(64) COMMENT 'Plug-in license nickname',
+  `licenseUrl` varchar(255) COMMENT 'Plug-in license URL',
   UNIQUE KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Main plug-in index';
 

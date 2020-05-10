@@ -6,6 +6,7 @@ require_once "lib/view_functions.php";
 require_once "lib/db/db_conn.php";
 require_once "lib/db/getPlugins.php";
 require_once "lib/db/getUser.php";
+require_once "lib/db/submit.php";
 
 
 // loads envs to a friendlier array

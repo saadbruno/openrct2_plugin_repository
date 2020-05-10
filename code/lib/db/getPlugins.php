@@ -71,7 +71,7 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $o
     }
 
     // build the query
-    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`, `users`.`username`, `users`.`avatarUrl` ";
+    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`,`plugins`.`licenseName`, `users`.`username`, `users`.`avatarUrl` ";
     $query .= "FROM `plugins` ";
     $query .= "LEFT JOIN `users` ";
     $query .= "ON `plugins`.`owner` = `users`.`id` ";
@@ -119,7 +119,7 @@ function getPluginDetails($id) {
     global $pdo;
 
     // build the query
-    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`readme`,`plugins`.`owner`,`plugins`.`url`, `users`.`username`, `users`.`avatarUrl`, `users`.`url` AS `ownerUrl` ";
+    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`readme`,`plugins`.`owner`,`plugins`.`url`,`plugins`.`licenseName`,`plugins`.`licenseUrl`, `users`.`username`, `users`.`avatarUrl`, `users`.`url` AS `ownerUrl` ";
     $query .= "FROM `plugins` ";
     $query .= "LEFT JOIN `users` ";
     $query .= "ON `plugins`.`owner` = `users`.`id` ";
@@ -273,7 +273,7 @@ function listPluginsFromIdArray($ids,$page = 1, $items = 8, $sort = 'new', $orde
 
     global $pdo;
 
-    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`, `users`.`username`, `users`.`avatarUrl` ";
+    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`description`,`plugins`.`submittedAt`,`plugins`.`updatedAt`,`plugins`.`usesCustomOpenGraphImage`,`plugins`.`thumbnail`,`plugins`.`stargazers`,`plugins`.`owner`,`plugins`.`licenseName`, `users`.`username`, `users`.`avatarUrl` ";
     $query .= "FROM `plugins` ";
     $query .= "LEFT JOIN `users` ";
     $query .= "ON `plugins`.`owner` = `users`.`id` ";
