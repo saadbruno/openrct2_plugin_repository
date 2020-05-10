@@ -14,7 +14,7 @@
     <meta property="og:image" content="<?= $meta['image'] ?>">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:card" content="summary">
     <meta property="twitter:url" content="<?= $meta['url'] ?>">
     <meta property="twitter:title" content="<?= $meta['title'] ?>">
     <meta property="twitter:description" content="<?= $meta['description'] ?>">
