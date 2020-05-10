@@ -8,6 +8,18 @@
             <li class="nav-item <?= $nav['active'] == 'home' ? 'active' : '' ?>">
                 <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Reference
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md">Scripting Reference</a>
+                    <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/openrct2.d.ts">API Reference</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/plugin-samples">Plug-in samples</a>
+                </div>
+            </li>
+            <li class="nav-divider"></li>
             <li class="nav-item <?= $nav['active'] == 'new' ? 'active' : '' ?>">
                 <a class="nav-link" href="/list/?sort=new">New</a>
             </li>

@@ -16,8 +16,14 @@
 
         input {
             &::placeholder {
-                color: var(--gray-2);;
+                color: var(--gray-2);
             }
         }
     }
+
+    .nav-divider {
+        border-right: solid 1px var(--primary-dark);
+        margin: 0 1rem;
+    }
+
 }
