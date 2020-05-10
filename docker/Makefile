@@ -112,7 +112,9 @@ stop-php-prod:
 stop-prod:
 	docker-compose -f docker-compose.prod.yml down
 
-redeploy-prod: build-sass build-prod stop-prod clean build-network run-prod
+redeploy-prod: redeploy-nginx-prod redeploy-php-prod
+
+redeploy-all-prod: build-sass build-prod stop-prod clean build-network run-prod
 
 redeploy-traefik-prod: build-traefik-prod stop-traefik-prod clean run-traefik-prod
 
@@ -122,7 +124,7 @@ redeploy-nginx-prod: build-nginx-prod stop-nginx-prod clean run-nginx-prod
 
 redeploy-php-prod: build-php-prod stop-php-prod clean run-php-prod
 
-redeploy-web-prod: redeploy-nginx-prod redeploy-php-prod
+redeploy-web-prod: redeploy-prod
 
 backup-mysql-prod:
 	docker exec -it orct2p_mysql mysqldump -u admin -p$(P) orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
