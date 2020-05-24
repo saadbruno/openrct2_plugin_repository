@@ -93,7 +93,7 @@ query {
 GRAPHQL;
   $result = graphql_query('https://api.github.com/graphql', $gitQuery, [], $_ENV['GITHUB_TOKEN']);
 
-  debug($result, 'Raw GitHub API result');
+  // debug($result, 'Raw GitHub API result');
 
   // converts the timestamp
   $updatedAt =  date("U", strtotime($result['data']['repository']['updatedAt']));
@@ -263,14 +263,14 @@ GRAPHQL;
   // builds redirect url
   $redirect = "/plugin/" . $result['data']['repository']['id'] . "/" . urlencode($result['data']['repository']['name']);
 
-  header('Content-Type: application/json; charset=UTF-8');
   $result = array();
   $result['status'] = 'success';
   $result['message'] = 'success';
   $result['redirect'] = $redirect;
-  die(json_encode($result));
+  header('Content-Type: application/json; charset=UTF-8');
+  echo json_encode($result, true);
 
   // debugging code
   debug($url, "URL Debugging");
-  debug($result, "GitHub API response");
+  debug( json_encode($result), "RESULT");
 }
