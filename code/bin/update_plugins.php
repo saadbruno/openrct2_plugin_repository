@@ -30,10 +30,9 @@ if ($argv[1]) {
     // get plugins
     $stmt_plugins = $pdo->prepare($query); 
     $stmt_plugins->execute();
-    
+    $plugins_array = $stmt_plugins->fetchAll();
 
-    while ($row_plugins = $stmt_plugins->fetch()) {
-
+    foreach ($plugins_array as $row_plugins) {
         // builds the github URL
         $githubUrl = "https://github.com/" . $row_plugins['username'] . "/" . $row_plugins['name'];
         savePlugin($githubUrl, true);
