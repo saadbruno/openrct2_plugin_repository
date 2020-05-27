@@ -78,6 +78,10 @@ backup-mysql:
 restore-mysql:
 	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 
+# other tools
+update-plugins:
+	docker exec -it orct2p_php-fpm php /var/www/code/bin/update_plugins.php
+
 #### PRODUCTION ####
 build-traefik-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache traefik

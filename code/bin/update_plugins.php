@@ -8,6 +8,9 @@ if (php_sapi_name() != 'cli') {
     exit;
 }
 
+// changes directory to current script, so the rel patchs work, independently of the user's current directory
+chdir(dirname(__FILE__));
+
 require_once "../lib/functions.php";
 require_once "../lib/db/db_conn.php";
 require_once "../lib/db/getPlugins.php";
