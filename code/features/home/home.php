@@ -10,8 +10,8 @@ if (isset($_POST['githubUrl'])) {
 $nav['active'] = 'home';
 
 // gets list of plugins from database
-$list_new = getPluginList($p, 3, 'new');
-$list_rating = getPluginList($p, 3, 'rating');
+$list_new = getPluginList($p, 6, 'new');
+$list_rating = getPluginList($p, 6, 'rating');
 
 // loads view
 include_once("views/home/home.php");
