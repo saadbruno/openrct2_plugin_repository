@@ -11,7 +11,9 @@ if (empty($plugin['id'])) {
 $meta['title'] = $plugin['name'] . ' | OpenRCT2 Plug-ins Directory';
 $meta['description'] = $plugin['description'];
 $meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/plugin/' . $plugin['id'] . '/' . urlencode($plugin['name']);
-
+if ($plugin['usesCustomOpenGraphImage'] == 1) {
+    $meta['image'] = $plugin['thumbnail'];
+}
 
 $nav['active'] = '';
 
