@@ -80,11 +80,9 @@ restore-mysql:
 
 # other tools
 update-plugins:
-	docker exec -it orct2p_php-fpm php /var/www/code/bin/update_plugins.php
+	docker exec orct2p_php-fpm php /var/www/code/bin/update_plugins.php
 
 #### PRODUCTION ####
-build-traefik-prod:
-	docker-compose -f docker-compose.prod.yml build --no-cache traefik
 build-mysql-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache mysql
 build-nginx-prod:
@@ -94,8 +92,6 @@ build-php-prod:
 build-prod:
 	docker-compose -f docker-compose.prod.yml build --no-cache
 
-run-traefik-prod:
-	docker-compose -f docker-compose.prod.yml up -d traefik
 run-mysql-prod:
 	docker-compose -f docker-compose.prod.yml up -d mysql
 run-nginx-prod:
@@ -105,8 +101,6 @@ run-php-prod:
 run-prod:
 	docker-compose -f docker-compose.prod.yml up -d
 
-stop-traefik-prod:
-	docker-compose -f docker-compose.prod.yml stop traefik
 stop-mysql-prod:
 	docker-compose -f docker-compose.prod.yml stop mysql
 stop-nginx-prod:
@@ -120,7 +114,6 @@ redeploy-prod: redeploy-nginx-prod redeploy-php-prod
 
 redeploy-all-prod: build-sass build-prod stop-prod clean build-network run-prod
 
-redeploy-traefik-prod: build-traefik-prod stop-traefik-prod clean run-traefik-prod
 
 redeploy-mysql-prod: build-mysql-prod stop-mysql-prod clean run-mysql-prod
 
@@ -131,7 +124,7 @@ redeploy-php-prod: build-php-prod stop-php-prod clean run-php-prod
 redeploy-web-prod: redeploy-prod
 
 backup-mysql-prod:
-	docker exec -it orct2p_mysql mysqldump -u admin -p$(P) orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+	docker exec orct2p_mysql mysqldump -u admin -p$(P) orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
 restore-mysql-prod:
 	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p$(P) orct2p 
 
