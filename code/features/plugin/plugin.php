@@ -10,7 +10,7 @@ if (empty($plugin['id'])) {
 // set meta information
 $meta['title'] = $plugin['name'] . ' | OpenRCT2 Plug-ins Directory';
 $meta['description'] = $plugin['description'];
-$meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/plugin/' . $plugin['id'] . '/' . urlencode($plugin['name']);
+$meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/plugin/' . $plugin['id'] . '/' . urlencode($plugin['name']) . '/releases';
 if ($plugin['usesCustomOpenGraphImage'] == 1) {
     $meta['image'] = $plugin['thumbnail'];
 }
