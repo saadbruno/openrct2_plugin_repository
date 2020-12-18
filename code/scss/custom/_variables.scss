@@ -10,6 +10,8 @@ $primary: #2993cf;
 $body-bg: #dcdfe0;
 $body-color: #2a2d2e;
 
+$code-color:  $body-color;
+
 $theme-colors: (
   "primary": $primary,
   "primary-light": lighten($primary, 20),
