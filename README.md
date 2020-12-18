@@ -35,5 +35,7 @@ Aside from that is pretty much the same process:
 - Import the DB schema with `make import-schema` (might need to change the password for this one)
 - Traefik should automatically install the SSL certificates
 
-## Links:
+## Links and other third party libraries used:
 [Docker LEMP stack](https://github.com/cvaclav/docker-lemp-stack)
+[Parsedown](https://github.com/erusev/parsedown)
+[HTML Purifier](http://htmlpurifier.org/)
