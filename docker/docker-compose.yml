@@ -16,6 +16,9 @@ services:
             - traefik.port=8080
         networks:
             - proxy.openrct2plugins
+        logging:
+            options:
+                max-size: 10m
     nginx:
         container_name: orct2p_nginx
         image: nginx:latest
@@ -35,6 +38,9 @@ services:
             - php-fpm
         depends_on:
             - mysql
+        logging:
+            options:
+                max-size: 10m
     php-fpm:
         container_name: orct2p_php-fpm
         build: ./php-fpm
@@ -53,6 +59,9 @@ services:
             - mysql
         depends_on:
             - mysql
+        logging:
+            options:
+                max-size: 10m
     mysql:
         container_name: orct2p_mysql
         image: mysql:8.0.16
@@ -65,6 +74,9 @@ services:
             - traefik.enable=false
         networks:
             - proxy.openrct2plugins
+        logging:
+            options:
+                max-size: 10m
     phpmyadmin:
         container_name: orct2p_phpmyadmin
         image: phpmyadmin/phpmyadmin
@@ -80,6 +92,9 @@ services:
             - mysql
         depends_on:
             - mysql
+        logging:
+            options:
+                max-size: 10m
     portainer:
         container_name: orct2p_portainer
         image: portainer/portainer
@@ -92,6 +107,9 @@ services:
             - traefik.port=9000
         networks:
             - proxy.openrct2plugins
+        logging:
+            options:
+                max-size: 10m
 networks:
     proxy.openrct2plugins:
         driver: overlay
