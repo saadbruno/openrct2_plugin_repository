@@ -17,6 +17,9 @@ services:
             - php-fpm
         depends_on:
             - mysql
+        logging:
+            options:
+                max-size: 10m
     php-fpm:
         container_name: orct2p_php-fpm
         build:
@@ -32,6 +35,9 @@ services:
             - mysql
         depends_on:
             - mysql
+        logging:
+            options:
+                max-size: 10m
     mysql:
         container_name: orct2p_mysql
         image: mysql:5.7.22
@@ -40,6 +46,9 @@ services:
         env_file: .env
         networks:
             - proxy.openrct2plugins
+        logging:
+            options:
+                max-size: 10m
 networks:
     proxy.openrct2plugins:
         driver: overlay
