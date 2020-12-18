@@ -17,10 +17,15 @@ if ($plugin['usesCustomOpenGraphImage'] == 1) {
 
 $nav['active'] = '';
 
+// let's load the HTML purifier to prevent XSS and other stuff
+require_once 'lib/htmlpurifier-4.13.0/library/HTMLPurifier.auto.php';
+$hp_config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($hp_config);
+
 // loads the Parsedown library
 require_once('lib/Parsedown.php');
 $Parsedown = new Parsedown();
-$Parsedown->setSafeMode(true);
+$Parsedown->setSafeMode(false);
 
 // loads view
 include_once("views/plugin/plugin.php");
