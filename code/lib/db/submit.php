@@ -78,6 +78,26 @@ query {
           text
         }
       }
+      readme5: object(expression: "main:readme.md") {
+        ... on Blob {
+          text
+        }
+      }
+      readme6: object(expression: "main:README.md") {
+        ... on Blob {
+          text
+        }
+      }
+      readme7: object(expression: "main:readme.MD") {
+        ... on Blob {
+          text
+        }
+      }
+      readme8: object(expression: "main:README.MD") {
+        ... on Blob {
+          text
+        }
+      }
       repositoryTopics(first: 25) {
         edges {
           node {
@@ -122,6 +142,10 @@ GRAPHQL;
   $readme .= $result['data']['repository']['readme2']['text'];
   $readme .= $result['data']['repository']['readme3']['text'];
   $readme .= $result['data']['repository']['readme4']['text'];
+  $readme .= $result['data']['repository']['readme5']['text'];
+  $readme .= $result['data']['repository']['readme6']['text'];
+  $readme .= $result['data']['repository']['readme7']['text'];
+  $readme .= $result['data']['repository']['readme8']['text'];
 
   // PLUGINS db insert
   $sql = "INSERT INTO `plugins` (`id`, `name`, `url`, `description`, ";
