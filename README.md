@@ -3,7 +3,7 @@ A place where users can share OpenRCT2 plugins
 
 ## Live at [https://openrct2plugins.org](https://openrct2plugins.org)
 
-![image](https://user-images.githubusercontent.com/23201434/81117476-88ba4400-8efd-11ea-82dc-d01a9048cbb5.png)
+![image](https://user-images.githubusercontent.com/23201434/117683284-4bc90300-b18a-11eb-9508-6bacb918523f.png)
 
 For now, users can submit plugis hosted on GitHub repos. There is a button in the top right to submit links, without needing to log in.
 
@@ -36,6 +36,6 @@ Aside from that is pretty much the same process:
 - Traefik should automatically install the SSL certificates
 
 ## Links and other third party libraries used:
-[Docker LEMP stack](https://github.com/cvaclav/docker-lemp-stack)
-[Parsedown](https://github.com/erusev/parsedown)
-[HTML Purifier](http://htmlpurifier.org/)
+- [Docker LEMP stack](https://github.com/cvaclav/docker-lemp-stack)  
+- [Parsedown](https://github.com/erusev/parsedown)  
+- [HTML Purifier](http://htmlpurifier.org/)  
