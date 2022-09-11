@@ -2,7 +2,7 @@ version: '3.4'
 services:
     nginx:
         container_name: orct2p_nginx
-        image: nginx:latest
+        image: nginx:1.23.1
         ports:
             - "${HTTP_PORT}:80"
         volumes:
@@ -20,8 +20,6 @@ services:
         container_name: orct2p_php-fpm
         build: ./docker/php-fpm
         image: orct2p_php-fpm_dev:latest
-        expose:
-            - "9000"
         volumes:
             - ./code:/var/www/code
             - ./docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
@@ -35,11 +33,14 @@ services:
     mysql:
         container_name: orct2p_mysql
         image: mysql:8.0.16
-        expose:
-            - "3306"
+        ports:
+            - "${MYSQL_DEV_PORT}:3306"
         volumes:
-            - ./mysql-mount:/var/lib/mysql
+            - ./docker/mysql/orct2p.sql:/docker-entrypoint-initdb.d/orct2p.sql:ro
+            - orct2p-db-dev:/var/lib/mysql
         env_file: .env
         logging:
             options:
                 max-size: 10m
+volumes:
+    orct2p-db-dev:
