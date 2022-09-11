@@ -4,17 +4,11 @@
 setup: redeploy import-schema
 
 # Build commands
-build: build-network build-sass build-containers
-build-network:
-	docker network create proxy.openrct2plugins
-build-containers:
-	docker-compose build
-build-nginx:
-	docker-compose build nginx
+build: build-sass build-php
 build-php:
 	docker-compose build php-fpm
 build-sass:
-	docker run --rm  -v `pwd`/../code/scss:/usr/src/app/scss  -v `pwd`/../code/public/styles:/usr/src/app/css cscheide/node-sass node-sass -r -o /usr/src/app/css/ /usr/src/app/scss/custom/
+	docker run --rm  -v `pwd`/code/scss:/usr/src/app/scss  -v `pwd`/code/public/styles:/usr/src/app/css cscheide/node-sass node-sass -r -o /usr/src/app/css/ /usr/src/app/scss/custom/
 
 # Run commands
 run:
@@ -40,10 +34,10 @@ stop-mysql:
 clean:
 	docker system prune -f
 prune-db:
-	rm -rf ../mysql
-redeploy: stop clean build-network build run
+	rm -rf ./mysql-mount
+redeploy: stop clean build run
 
-redeploy-web: stop-nginx stop-php clean build-nginx build-php run-nginx run-php
+redeploy-web: stop-nginx stop-php clean build-php run-nginx run-php
 
 restart-nginx: stop-nginx run-nginx
 
@@ -57,7 +51,6 @@ manage-nginx:
 manage-mysql:
 	docker exec -it orct2p_mysql mysql -u admin -p orct2p
 
-
 # logs
 logs:
 	docker-compose logs -f
@@ -67,16 +60,14 @@ logs-nginx:
 	docker-compose logs -f nginx
 logs-mysql:
 	docker-compose logs -f mysql
-logs-traefik:
-	docker-compose logs -f traefik
 
 # database management
 import-schema:
-	cat ./mysql/orct2p.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
+	cat ./docker/mysql/orct2p.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 backup-mysql:
-	docker exec -it orct2p_mysql mysqldump -u admin -p1h030PUVhZLCsM orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+	docker exec -it orct2p_mysql mysqldump -u admin -p1h030PUVhZLCsM orct2p | tail -n +2 > ./docker/mysql/backup/orct2p_restore.sql;  cp ./docker/mysql/backup/orct2p_restore.sql ./docker/mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
 restore-mysql:
-	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
+	cat ./docker/mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p1h030PUVhZLCsM orct2p 
 
 # other tools
 update-plugins:
@@ -124,9 +115,9 @@ redeploy-php-prod: build-php-prod stop-php-prod clean run-php-prod
 redeploy-web-prod: redeploy-prod
 
 backup-mysql-prod:
-	docker exec orct2p_mysql mysqldump -u admin -p$(P) orct2p | tail -n +2 > ./mysql/backup/orct2p_restore.sql;  cp ./mysql/backup/orct2p_restore.sql ./mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
+	docker exec orct2p_mysql mysqldump -u admin -p$(P) orct2p | tail -n +2 > ./docker/mysql/backup/orct2p_restore.sql;  cp ./docker/mysql/backup/orct2p_restore.sql ./docker/mysql/backup/orct2p_backup_`date +%Y%m%d_%H%M%S`.sql
 restore-mysql-prod:
-	cat ./mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p$(P) orct2p 
+	cat ./docker/mysql/backup/orct2p_restore.sql | docker exec -i orct2p_mysql mysql -u admin -p$(P) orct2p 
 
 # aliases
 sass: build-sass
