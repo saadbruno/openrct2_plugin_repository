@@ -17,25 +17,22 @@ Users can also check details about the plug-in (which is basicallt the README.md
 ### Development:
 - Edit your `/etc/hosts` and add the line:
 ```
-127.0.0.1 openrct2plugins.test pma.openrct2plugins.test traefik.openrct2plugins.test portainer.openrct2plugins.test
+127.0.0.1 openrct2plugins.test
 ```
 - Create a [GitHub Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) with the `public_repo` option.
-- Copy `docker/template.env` to `docker/.env` and edit it with your GitHub Token
-- `cd` into `./docker` and run `make setup` (if you get a mysql error 2002, wait a bit (mysql is still starting up), and run `make import-schema` again)
+- Copy `template.env` to `.env` and edit it with your GitHub Token
+- Run `make build-sass` to build the scss into a css file
+- `make run`
 
 You should now be able to acess the page at [http://openrct2plugins.test](http://openrct2plugins.test)
 
 ### Prod:
-Prod is running on port 4000, so it requires a reverse proxy pointing to that server (example for NGINX is in `docker/nginx/prod/reverse-proxy.conf`)
+Reverse proxy example for NGINX is in `docker/nginx/prod/reverse-proxy.conf`
 
-Aside from that is pretty much the same process:
-- Copy `docker/template.env` to `docker/.env` and edit it with your GitHub Token, and also change the MySQL password
-- `cd` into `./docker`
-- Run `make redeploy-prod`
-- Import the DB schema with `make import-schema` (might need to change the password for this one)
-- Traefik should automatically install the SSL certificates
+- Copy `template.env` to `.env` and edit it with your GitHub Token, and also change the MySQL password
+- Run `make build-sass` to build the scss into a css file
+- `make run-prod`
 
 ## Links and other third party libraries used:
-- [Docker LEMP stack](https://github.com/cvaclav/docker-lemp-stack)  
 - [Parsedown](https://github.com/erusev/parsedown)  
 - [HTML Purifier](http://htmlpurifier.org/)  
