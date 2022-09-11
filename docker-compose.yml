@@ -36,6 +36,7 @@ services:
         ports:
             - "${MYSQL_DEV_PORT}:3306"
         volumes:
+            - ./docker/mysql/mysql-low-memory.cnf:/etc/mysql/conf.d/mysql-low-memory.cnf:ro
             - ./docker/mysql/orct2p.sql:/docker-entrypoint-initdb.d/orct2p.sql:ro
             - orct2p-db-dev:/var/lib/mysql
         env_file: .env
