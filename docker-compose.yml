@@ -1,0 +1,47 @@
+version: '3.4'
+services:
+    nginx:
+        container_name: orct2p_nginx
+        image: nginx:1.23.1
+        ports:
+            - "${HTTP_PORT}:80"
+        volumes:
+            - ./code:/var/www/code
+            - ./docker/nginx/nginx.dev.conf:/etc/nginx/conf.d/default.conf
+            - ./docker/nginx/logs:/var/log/nginx
+        env_file:
+            - .env
+        depends_on:
+            - php-fpm
+        logging:
+            options:
+                max-size: 10m
+    php-fpm:
+        container_name: orct2p_php-fpm
+        build: ./docker/php-fpm
+        image: orct2p_php-fpm_dev:latest
+        volumes:
+            - ./code:/var/www/code
+            - ./docker/php-fpm/php-ini-overrides.ini:/usr/local/etc/php/conf.d/99-overrides.ini
+        env_file:
+            - .env
+        depends_on:
+            - mysql
+        logging:
+            options:
+                max-size: 10m
+    mysql:
+        container_name: orct2p_mysql
+        image: mysql:8.0.16
+        ports:
+            - "${MYSQL_DEV_PORT}:3306"
+        volumes:
+            - ./docker/mysql/mysql-low-memory.cnf:/etc/mysql/conf.d/mysql-low-memory.cnf:ro
+            - ./docker/mysql/orct2p.sql:/docker-entrypoint-initdb.d/orct2p.sql:ro
+            - orct2p-db-dev:/var/lib/mysql
+        env_file: .env
+        logging:
+            options:
+                max-size: 10m
+volumes:
+    orct2p-db-dev:
