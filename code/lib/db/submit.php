@@ -115,6 +115,8 @@ GRAPHQL;
 
   // debug($result, 'Raw GitHub API result');
 
+  // ISSUE #23 ADD VALIDATION HERE
+
   // converts the timestamp
   $updatedAt =  date("U", strtotime($result['data']['repository']['updatedAt']));
   $submittedAt = time();

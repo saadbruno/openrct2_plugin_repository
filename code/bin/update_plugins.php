@@ -8,7 +8,7 @@ if (php_sapi_name() != 'cli') {
     exit;
 }
 
-// changes directory to current script, so the rel patchs work, independently of the user's current directory
+// changes directory to current script, so the relative paths work, independently of the user's current directory
 chdir(dirname(__FILE__));
 
 require_once "../lib/functions.php";
@@ -17,12 +17,12 @@ require_once "../lib/db/getPlugins.php";
 require_once "../lib/db/submit.php";
 
 
-if ($argv[1]) {
+if ($argv[1]) { // if the user provided a specific github URL to update
 
     $githubUrl = $argv[1];
     savePlugin($githubUrl, true);
     
-} else {
+} else { // else we run for all plugins
 
     // build the query
     $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`owner`,`users`.`username` ";
