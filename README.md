@@ -15,16 +15,12 @@ Users can also check details about the plug-in (which is basicallt the README.md
 
 ## Setup:
 ### Development:
-- Edit your `/etc/hosts` and add the line:
-```
-127.0.0.1 openrct2plugins.test
-```
 - Create a [GitHub Access Token](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) with the `public_repo` option.
-- Copy `template.env` to `.env` and edit it with your GitHub Token
+- Copy `template.env` to `.env` and edit it with your GitHub Token, and change the HTTP port if you'd like
 - Run `make build-sass` to build the scss into a css file
 - `make run`
 
-You should now be able to acess the page at [http://openrct2plugins.test](http://openrct2plugins.test)
+You should now be able to access the page at [http://localhost](http://localhost), or http://localhost:PORT if you edited the port in the `.env` file
 
 ### Prod:
 Reverse proxy example for NGINX is in `docker/nginx/prod/reverse-proxy.conf`
