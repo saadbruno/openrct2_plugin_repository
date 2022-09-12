@@ -58,9 +58,13 @@ query {
         avatarUrl
         url
       }
-      latestRelease {
-        publishedAt
-      }
+			releases (last: 1) {
+			  edges {
+			    node {
+            publishedAt
+			    }
+			  }
+			}
       readme1: object(expression: "master:readme.md") {
         ... on Blob {
           text
@@ -130,11 +134,13 @@ GRAPHQL;
 
   // Let's get the latest update timestamp for the repo.
   // If the repo has a release on GitHub, we use the release date. Otherwise we get the time of the latest commit
-  if (isset($result['data']['repository']['latestRelease']['publishedAt'])) {
-    $updatedAt =  date("U", strtotime($result['data']['repository']['latestRelease']['publishedAt']));
+  if (isset($result['data']['repository']['releases']['edges'][0]['node']['publishedAt'])) {
+    $updatedAt =  date("U", strtotime($result['data']['repository']['releases']['edges'][0]['node']['publishedAt']));
   } else {
     $updatedAt =  date("U", strtotime($result['data']['repository']['pushedAt']));
   }
+
+  debug($result['data']['repository']['releases']['edges'][0]['node']['publishedAt'], "Latest release date (including pre-releases)");
 
   $submittedAt = time();
 
