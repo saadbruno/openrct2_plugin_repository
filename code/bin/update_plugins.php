@@ -8,7 +8,7 @@ if (php_sapi_name() != 'cli') {
     exit;
 }
 
-// changes directory to current script, so the rel patchs work, independently of the user's current directory
+// changes directory to current script, so the relative paths work, independently of the user's current directory
 chdir(dirname(__FILE__));
 
 require_once "../lib/functions.php";
@@ -17,18 +17,15 @@ require_once "../lib/db/getPlugins.php";
 require_once "../lib/db/submit.php";
 
 
-if ($argv[1]) {
+if ($argv[1]) { // if the user provided a specific github URL to update
 
     $githubUrl = $argv[1];
     savePlugin($githubUrl, true);
     
-} else {
+} else { // else we run for all plugins
 
     // build the query
-    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`owner`,`users`.`username` ";
-    $query .= "FROM `plugins` ";
-    $query .= "LEFT JOIN `users` ";
-    $query .= "ON `plugins`.`owner` = `users`.`id`;";
+    $query = "SELECT `plugins`.`url` FROM `plugins`";
 
     // get plugins
     $stmt_plugins = $pdo->prepare($query); 
@@ -36,8 +33,6 @@ if ($argv[1]) {
     $plugins_array = $stmt_plugins->fetchAll();
 
     foreach ($plugins_array as $row_plugins) {
-        // builds the github URL
-        $githubUrl = "https://github.com/" . $row_plugins['username'] . "/" . $row_plugins['name'];
-        savePlugin($githubUrl, true);
+        savePlugin($row_plugins['url'], true);
     }
 }

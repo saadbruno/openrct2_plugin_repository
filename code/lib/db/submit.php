@@ -25,7 +25,7 @@ function savePlugin($githubUrl, $skipDate = false)
     $result = array();
     $result['status'] = 'error';
     $result['message'] = 'URL is not valid';
-    die(json_encode($result));
+    return json_encode($result);
   }
 
   // puts array into variables so we can use them below:
@@ -114,6 +114,16 @@ GRAPHQL;
   $result = graphql_query('https://api.github.com/graphql', $gitQuery, [], $_ENV['GITHUB_TOKEN']);
 
   // debug($result, 'Raw GitHub API result');
+
+  // If Git|Hub returns an error, we return before trying to mess with the database
+  if (isset($result['errors'])) {
+    header('Content-Type: application/json; charset=UTF-8');
+    $result = array();
+    $result['status'] = 'error';
+    $result['message'] = 'GitHub link not found. Are you sure the URL is correct and the repo is public?';
+
+    return json_encode($result);
+  }
 
   // converts the timestamp
   $updatedAt =  date("U", strtotime($result['data']['repository']['updatedAt']));
@@ -223,7 +233,7 @@ GRAPHQL;
       $result['message'] .= $e;
     }
 
-    die(json_encode($result));
+    return json_encode($result);
   }
 
 
@@ -252,7 +262,7 @@ GRAPHQL;
     $result = array();
     $result['status'] = 'error';
     $result['message'] = 'Error when adding user';
-    die(json_encode($result));
+    return json_encode($result);
   }
 
 
@@ -278,7 +288,7 @@ GRAPHQL;
       $result = array();
       $result['status'] = 'error';
       $result['message'] = 'Error when adding tags';
-      die(json_encode($result));
+      return json_encode($result);
     }
   }
 
@@ -292,9 +302,10 @@ GRAPHQL;
   $result['message'] = 'success';
   $result['redirect'] = $redirect;
   header('Content-Type: application/json; charset=UTF-8');
-  echo json_encode($result, true);
 
   // debugging code
   debug($url, "URL Debugging");
   debug( json_encode($result), "RESULT");
+
+  return json_encode($result, true);
 }
