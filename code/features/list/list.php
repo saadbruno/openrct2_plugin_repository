@@ -29,7 +29,13 @@ if (!empty($_GET['search'])) {
             $list = getPluginList($p, 8, 'name');
             $list['info']['title'] = "Plug-ins in alphabetical order";
             break;
-
+        case 'updated':
+            $meta['title'] = 'Recently updated plug-ins | OpenRCT2 Plug-ins Directory';
+            $meta['description'] = 'Get the most recently updated plug-ins submitted to our directly of OpenRCT2 plug-ins';
+            $nav['active'] = 'updated';
+            $list = getPluginList($p, 8, 'updated');
+            $list['info']['title'] = "Recently updated plug-ins";
+            break;
         case 'new':
         default:
             $nav['active'] = 'new';
