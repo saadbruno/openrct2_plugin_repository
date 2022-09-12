@@ -25,10 +25,7 @@ if ($argv[1]) { // if the user provided a specific github URL to update
 } else { // else we run for all plugins
 
     // build the query
-    $query = "SELECT `plugins`.`id`,`plugins`.`name`,`plugins`.`owner`,`users`.`username` ";
-    $query .= "FROM `plugins` ";
-    $query .= "LEFT JOIN `users` ";
-    $query .= "ON `plugins`.`owner` = `users`.`id`;";
+    $query = "SELECT `plugins`.`url` FROM `plugins`";
 
     // get plugins
     $stmt_plugins = $pdo->prepare($query); 
@@ -36,8 +33,6 @@ if ($argv[1]) { // if the user provided a specific github URL to update
     $plugins_array = $stmt_plugins->fetchAll();
 
     foreach ($plugins_array as $row_plugins) {
-        // builds the github URL
-        $githubUrl = "https://github.com/" . $row_plugins['username'] . "/" . $row_plugins['name'];
-        savePlugin($githubUrl, true);
+        savePlugin($row_plugins['url'], true);
     }
 }

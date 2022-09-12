@@ -3,8 +3,7 @@
 // if a plugin was submitted
 if (isset($_POST['githubUrl'])) {
     $githubUrl = filter_input(INPUT_POST, 'githubUrl', FILTER_SANITIZE_URL);
-    savePlugin($githubUrl);
-    die();
+    die(savePlugin($githubUrl));
 }
 
 $nav['active'] = 'home';
