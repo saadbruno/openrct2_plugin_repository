@@ -53,6 +53,9 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $o
         case 'name':
             $sortQuery = 'name';
             break;
+        case 'updated':
+            $sortQuery = 'updatedAt';
+            break;
         case 'new':
         default:
             $sortQuery = 'submittedAt';
@@ -251,6 +254,9 @@ function listPluginsFromIdArray($ids,$page = 1, $items = 8, $sort = 'new', $orde
                 break;
             case 'name':
                 $sortQuery = 'name';
+                break;
+            case 'updated':
+                $sortQuery = 'updatedAt';
                 break;
             case 'new':
             default:

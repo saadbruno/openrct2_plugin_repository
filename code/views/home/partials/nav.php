@@ -26,6 +26,9 @@
             <li class="nav-item <?= $nav['active'] == 'rating' ? 'active' : '' ?>">
                 <a class="nav-link" href="/list/?sort=rating">Rating</a>
             </li>
+            <li class="nav-item <?= $nav['active'] == 'updated' ? 'active' : '' ?>">
+                <a class="nav-link" href="/list/?sort=updated">Recently updated</a>
+            </li>
         </ul>
         <form id="nav-search" class="form-inline mt-2 mt-md-0" action="/list/" method="get" >
             <div class="input-group">
