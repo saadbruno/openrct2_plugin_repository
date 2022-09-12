@@ -1,6 +1,6 @@
 <?php
 
-function savePlugin($githubUrl, $skipDate = false)
+function savePlugin($githubUrl)
 {
   // all the logic for submitting new plugins
 
@@ -159,22 +159,13 @@ GRAPHQL;
 
   // PLUGINS db insert
   $sql = "INSERT INTO `plugins` (`id`, `name`, `url`, `description`, ";
-  if($skipDate == false) {
-    $sql .= "`submittedAt`, ";
-  }
+  $sql .= "`submittedAt`, ";
   $sql .= "`updatedAt`, `usesCustomOpenGraphImage`, `thumbnail`, `stargazers`, `owner`, `readme`, `licenseName`, `licenseUrl`) ";
-  $sql .= "VALUES (?,?,?,?,";
-  if($skipDate == false) {
-    $sql .= "?,";
-  }
-  $sql .= "?,?,?,?,?,?,?,?) ";
+  $sql .= "VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)";
   $sql .= "ON DUPLICATE KEY UPDATE ";
   $sql .= "`name` = ?, ";
   $sql .= "`url` = ?,  ";
   $sql .= "`description` = ?,  ";
-  if($skipDate == false) {
-    $sql .= "`submittedAt` = ?,  ";
-  }
   $sql .= "`updatedAt` = ?, ";
   $sql .= "`usesCustomOpenGraphImage` = ?, ";
   $sql .= "`thumbnail` = ?, ";
@@ -192,9 +183,7 @@ GRAPHQL;
   array_push($args, $result['data']['repository']['name']);
   array_push($args, $result['data']['repository']['url']);
   array_push($args, $result['data']['repository']['description']);
-  if($skipDate == false) {
-    array_push($args, $submittedAt);
-  }
+  array_push($args, $submittedAt);
   array_push($args, $updatedAt);
   array_push($args, $usesOGImg);
   array_push($args, $result['data']['repository']['openGraphImageUrl']);
@@ -206,9 +195,6 @@ GRAPHQL;
   array_push($args, $result['data']['repository']['name']);
   array_push($args, $result['data']['repository']['url']);
   array_push($args, $result['data']['repository']['description']);
-  if($skipDate == false) {
-    array_push($args, $submittedAt);
-  }
   array_push($args, $updatedAt);
   array_push($args, $usesOGImg);
   array_push($args, $result['data']['repository']['openGraphImageUrl']);

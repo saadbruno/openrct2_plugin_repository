@@ -20,7 +20,7 @@ require_once "../lib/db/submit.php";
 if ($argv[1]) { // if the user provided a specific github URL to update
 
     $githubUrl = $argv[1];
-    savePlugin($githubUrl, true);
+    savePlugin($githubUrl);
     
 } else { // else we run for all plugins
 
@@ -33,6 +33,6 @@ if ($argv[1]) { // if the user provided a specific github URL to update
     $plugins_array = $stmt_plugins->fetchAll();
 
     foreach ($plugins_array as $row_plugins) {
-        savePlugin($row_plugins['url'], true);
+        savePlugin($row_plugins['url']);
     }
 }
