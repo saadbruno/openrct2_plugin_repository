@@ -58,6 +58,9 @@ query {
         avatarUrl
         url
       }
+      latestRelease {
+        publishedAt
+      }
       readme1: object(expression: "master:readme.md") {
         ... on Blob {
           text
@@ -125,8 +128,14 @@ GRAPHQL;
     return json_encode($result);
   }
 
-  // converts the timestamp
-  $updatedAt =  date("U", strtotime($result['data']['repository']['updatedAt']));
+  // Let's get the latest update timestamp for the repo.
+  // If the repo has a release on GitHub, we use the release date. Otherwise we get the time of the latest commit
+  if (isset($result['data']['repository']['latestRelease']['publishedAt'])) {
+    $updatedAt =  date("U", strtotime($result['data']['repository']['latestRelease']['publishedAt']));
+  } else {
+    $updatedAt =  date("U", strtotime($result['data']['repository']['pushedAt']));
+  }
+
   $submittedAt = time();
 
   // converts OG image to boolean
