@@ -33,6 +33,11 @@ function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $o
 
     $count = $stmt_count->fetch();
 
+    // if there are no plugins in the database, we stop execution here.
+    if ($count['n'] == 0) {
+        return;
+    }
+
     // get total number of pages
     $pages = ceil($count['n'] / $items);
     // if user requested a page higher than total of pages, we override it
