@@ -6,8 +6,7 @@ build: build-sass build-php
 build-php:
 	docker-compose build php-fpm
 build-sass:
-	docker run --rm  -v `pwd`/code/scss:/usr/src/app/scss  -v `pwd`/code/public/styles:/usr/src/app/css cscheide/node-sass node-sass -r -o /usr/src/app/css/ /usr/src/app/scss/custom/
-
+	docker run --rm -v `pwd`/code/scss/custom:/sass/ -v `pwd`/code/scss/vendor:/vendor/ -v `pwd`/code/public/styles:/css/ -it michalklempa/dart-sass:latest /opt/dart-sass/sass /sass:/css
 # Run commands
 run:
 	docker-compose up -d

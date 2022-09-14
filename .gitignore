@@ -6,3 +6,4 @@
 /.env
 
 /code/public/styles/*.css
+/code/public/styles/*.map

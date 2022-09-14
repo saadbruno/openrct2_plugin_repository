@@ -13,6 +13,7 @@ services:
             - .env
         depends_on:
             - php-fpm
+            - sass
         logging:
             options:
                 max-size: 10m
@@ -40,6 +41,16 @@ services:
             - ./docker/mysql/orct2p.sql:/docker-entrypoint-initdb.d/orct2p.sql:ro
             - orct2p-db-dev:/var/lib/mysql
         env_file: .env
+        logging:
+            options:
+                max-size: 10m
+    sass:
+        container_name: orct2p_sass
+        image: michalklempa/dart-sass:latest
+        volumes:
+            - './code/scss/custom/:/sass/'
+            - './code/scss/vendor/:/vendor/'
+            - './code/public/styles:/css/'
         logging:
             options:
                 max-size: 10m
