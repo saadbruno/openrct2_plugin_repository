@@ -1,12 +1,12 @@
-<nav class="navbar navbar-expand-md navbar-dark">
+<nav class="navbar navbar-expand-md navbar-dark px-3">
     <a class="navbar-brand" href="/"><img class="img-fluid logo" src="/public/media/img/logo/orct2p-logo-h-m-dark.svg" /> </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item <?= $nav['active'] == 'home' ? 'active' : '' ?>">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link <?= $nav['active'] == 'home' ? 'active' : '' ?>" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -20,14 +20,14 @@
                 </div>
             </li>
             <li class="nav-divider"></li>
-            <li class="nav-item <?= $nav['active'] == 'new' ? 'active' : '' ?>">
-                <a class="nav-link" href="/list/?sort=new">New</a>
+            <li class="nav-item">
+                <a class="nav-link <?= $nav['active'] == 'new' ? 'active' : '' ?>" href="/list/?sort=new">New</a>
             </li>
-            <li class="nav-item <?= $nav['active'] == 'rating' ? 'active' : '' ?>">
-                <a class="nav-link" href="/list/?sort=rating">Rating</a>
+            <li class="nav-item">
+                <a class="nav-link <?= $nav['active'] == 'rating' ? 'active' : '' ?>" href="/list/?sort=rating">Rating</a>
             </li>
-            <li class="nav-item <?= $nav['active'] == 'updated' ? 'active' : '' ?>">
-                <a class="nav-link" href="/list/?sort=updated">Recently updated</a>
+            <li class="nav-item">
+                <a class="nav-link <?= $nav['active'] == 'updated' ? 'active' : '' ?>" href="/list/?sort=updated">Recently updated</a>
             </li>
         </ul>
         <form id="nav-search" class="form-inline mt-2 mt-md-0" action="/list/" method="get" >
@@ -37,7 +37,7 @@
             </div>
         </form>
 
-        <div class="nav-user ml-md-2 mt-2 mt-md-0">
+        <div class="nav-user ms-md-2 mt-2 mt-md-0">
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="submitButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fas fa-upload"></i> Submit Plugin
