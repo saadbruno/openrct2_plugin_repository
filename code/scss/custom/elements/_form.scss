@@ -1,6 +1,5 @@
 .input-group {
-    .input-group-append {
-        border-top-left-radius: 0;
-        border-bottom-left-radius: 0;
-    }
+  .form-control, .form-control:focus {
+    background-color: $gray-100;
+  }
 }

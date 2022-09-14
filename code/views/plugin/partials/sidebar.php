@@ -8,7 +8,7 @@
 
         <div class="col-12">
 
-            <a class="download-plugin btn btn-primary" href="<?= $plugin['url'] ?>/releases/latest" target="_blank" role="button"><i class="fab fa-github"></i> Get plugin!</a>
+            <a class="download-plugin text-white btn btn-primary" href="<?= $plugin['url'] ?>/releases/latest" target="_blank" role="button"><i class="fab fa-github"></i> Get plugin!</a>
 
             <h5>Author:</h5>
             <a class="author" href="/user/<?= $plugin['owner'] ?>/<?= urlencode($plugin['username']) ?>">
