@@ -1,5 +1,5 @@
 .navbar {
-    background-color: var(--primary);
+    background-color: var(--bs-primary);
 
     .logo {
         width: 100px;
@@ -7,7 +7,7 @@
 
     .submit-dropdown {
         min-width: 100%;
-        background-color: var(--gray-2);
+        background-color: var(--bs-gray-2);
         padding: 0.45rem;
 
         @media (min-width: map-get($grid-breakpoints, "md")) {
@@ -16,13 +16,13 @@
 
         input {
             &::placeholder {
-                color: var(--gray-2);
+                color: var(--bs-gray-2);
             }
         }
     }
 
     .nav-divider {
-        border-right: solid 1px var(--primary-dark);
+        border-right: solid 1px var(--bs-primary-dark);
         margin: 0 1rem;
     }
 

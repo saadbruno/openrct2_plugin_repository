@@ -2,7 +2,7 @@
     position: relative;
     min-height: 40vh;
     overflow: hidden;
-    color: var(--white);
+    color: var(--bs-white);
     text-align: center;
 
     &.notFound {
@@ -30,9 +30,9 @@
     }
 
     a {
-        color: var(--primary-light);
+        color: var(--bs-primary-light);
         &:hover {
-            color: var(--primary);
+            color: var(--bs-primary);
         }
     }
 }

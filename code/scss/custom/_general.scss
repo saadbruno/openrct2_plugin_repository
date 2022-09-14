@@ -2,6 +2,15 @@ body {
     min-height: 100vh;
     flex-direction: column;
     display: flex;
+
+    a {
+        text-decoration: none;
+    
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
 }
 
 main {
@@ -25,8 +34,8 @@ main {
 
         a {
 
-            color: var(--white);
-            background-color: var(--primary-light);
+            color: var(--bs-white);
+            background-color: var(--bs-primary-light);
             padding: 0.1rem 0.4rem;
             margin-right: 0.4rem;
             border-radius: 4px;
@@ -34,13 +43,13 @@ main {
 
             &:hover {
                 text-decoration: none;
-                background-color: var(--primary);
+                background-color: var(--bs-primary);
             }
         }
     }
 }
 
 .no-description {
-    color: var(--gray-6);
+    color: var(--bs-gray-6);
     font-style: italic;
 }

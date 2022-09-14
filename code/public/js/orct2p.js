@@ -1,50 +1,45 @@
 // bootstrap tooltips
-$(function () {
-    $('[data-toggle="tooltip"]').tooltip()
-})
+const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
 // validation for submit button
 
-$('#submit-form').on('submit', function(e) {
+document.querySelector('#submit-form').addEventListener('submit', function (e) {
     e.preventDefault();
 
     // clears CSS class to perform validation
-    $('#githubUrl').removeClass('is-invalid');
+    document.querySelector('#githubUrl').classList.remove('is-invalid');
+    document.querySelector('#submit-feedback').classList.remove('d-block');
 
     var formData = new FormData(this);
     console.log(formData);
 
-
-    $.ajax({
-        url: "/",
-        data: formData,
-        processData: false,
-        contentType: false,
-        type: "POST",
-
-        // this success doesn't mean it sucessfully added a new entry to th database. It just means the server got the POST succesfully, and will do validation
-        success: function(data, textStatus, jqXHR) {
-            console.log(data);
-            // decides what to do with the reply
-
+    fetch("/",
+        {
+            body: formData,
+            method: "post"
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log('Success:', data);
             // if the message was 'success, redirect to the new URL'
             if (data.status == 'success') {
-                $('#githubUrl').addClass('is-valid');
-                window.location = data.redirect; 
+                document.querySelector('#githubUrl').classList.add('is-valid');
+                window.location = data.redirect;
             } else if (data.status == 'error') {
+                console.log(data.message);
                 // if there was an error, adds the "is-invalid" class to the form, and edits the feedback message
-                $('#githubUrl').addClass('is-invalid');
-                $('#githubUrl').siblings('.invalid-feedback').html(data.message);
+                document.querySelector('#githubUrl').classList.add('is-invalid');
+                document.querySelector('#submit-feedback').innerHTML = data.message;
+                document.querySelector('#submit-feedback').classList.add('d-block');
             }
-
-        },
-        // the server never got the data
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("failed");
+        })
+        .catch((error) => {
+            console.error('Error:', error);
             // if there was an error, adds the "is-invalid" class to the form, and edits the feedback message
-            $('#githubUrl').addClass('is-invalid');
-            $('#githubUrl').siblings('.invalid-feedback').html('Server error');
-        }
-    });
+            document.querySelector('#githubUrl').classList.add('is-invalid');
+            document.querySelector('#submit-feedback').innerHTML = 'Server error';
+            document.querySelector('#submit-feedback').classList.add('d-block');
+        });
 
 });

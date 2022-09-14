@@ -1,8 +1,7 @@
 /mysql-mount
 /docker/nginx/logs
-/docker/traefik/acme
-/docker/portainer
 /docker/.env
 /.env
 
 /code/public/styles/*.css
+/code/public/styles/*.map

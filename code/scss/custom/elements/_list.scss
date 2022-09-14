@@ -1,17 +1,17 @@
 .list-container {
-    background-color: var(--gray-1);
+    background-color: var(--bs-gray-1);
     padding-top: 0.5rem;
     margin-bottom: 4rem;
 
     .plugin-list {
 
         .list-item {
-            border-top: solid 1px var(--gray-3);
+            border-top: solid 1px var(--bs-gray-3);
             padding: 0.5rem 0;
 
             .thumbnail {
                 img {
-                    border: solid 3px var(--gray-3);
+                    border: solid 3px var(--bs-gray-3);
                     width: 100%;
                     height: 120px;
                     object-fit: cover;
@@ -27,7 +27,7 @@
             }
 
             .footer {
-                color: var(--gray-6);
+                color: var(--bs-gray-6);
 
                 span {
                     display: inline-block;
@@ -36,7 +36,7 @@
                         content: '\25CF';
                         margin: 0 0.3rem;
                         font-size: 0.6rem;
-                        color: var(--gray-4);
+                        color: var(--bs-gray-4);
                         position: relative;
                         top: -2px;
                     }
@@ -55,7 +55,7 @@
     .pagination {
         margin-top: 1rem;
         padding-top: 1rem;
-        border-top: solid 1px var(--gray-3);
+        border-top: solid 1px var(--bs-gray-3);
 
         .page-item {
             &.disabled {
@@ -67,7 +67,7 @@
     .view-more {
         padding: 1rem 0;
         margin-top: 1rem;
-        border-top: solid 1px var(--gray-3);
+        border-top: solid 1px var(--bs-gray-3);
 
         a {
             display: block;
