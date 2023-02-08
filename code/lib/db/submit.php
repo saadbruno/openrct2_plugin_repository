@@ -58,7 +58,7 @@ query {
         avatarUrl
         url
       }
-			releases (last: 1) {
+			releases (first: 1) {
 			  edges {
 			    node {
             publishedAt
