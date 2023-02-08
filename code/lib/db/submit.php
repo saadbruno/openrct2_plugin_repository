@@ -34,6 +34,12 @@ function savePlugin($githubUrl)
 
   $gitQuery = <<<GRAPHQL
 query {
+  
+    rateLimit {
+      cost
+      remaining
+    }
+
     repository(owner: "$repoOwner", name: "$repoName") {
       id
       name
@@ -131,6 +137,10 @@ GRAPHQL;
 
     return json_encode($result);
   }
+
+  // API cost info
+  debug($result['data']['rateLimit']['cost'], "GitHub API Rate Limit Cost", 'logs', true);
+  debug($result['data']['rateLimit']['remaining'], "GitHub API Rate Limit Remaining", 'logs', true);
 
   // Let's get the latest update timestamp for the repo.
   // If the repo has a release on GitHub, we use the release date. Otherwise we get the time of the latest commit
