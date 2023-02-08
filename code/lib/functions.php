@@ -215,10 +215,10 @@ function findTimeAgo($past, $now = "now", $length = "long")
 //Logging to terminal
 // this requires the "DEBUG=1" in the /docker/.env file
 // messages here will be readable by running `make logs-php`
-function debug($message, $title = 'DEBUG', $location = 'logs')
+function debug($message, $title = 'DEBUG', $location = 'logs', $force = false)
 {
     // we only wanna print if debug is set in the .env
-    if ($_ENV['DEBUG'] != 1) {
+    if ($_ENV['DEBUG'] != 1 && $force == false) {
         return;
     }
 
