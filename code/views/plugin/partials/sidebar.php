@@ -48,8 +48,10 @@
 
             <h6>License:</h6>
             <i class="fas fa-balance-scale"></i>
-            <?php if ($plugin['licenseName']) { ?>
-                <a href="<?= $plugin['licenseUrl'] ?>" target="_blank" rel="noopener noreferrer"> <?= $plugin['licenseName'] ?> </a>
+            <?php if ($plugin['licenseName'] == 'Other') { ?>
+                <a href="<?= $plugin['url'] ?>/blob/master/LICENSE" target="_blank" rel="noopener noreferrer">Custom</a>
+            <?php } elseif ($plugin['licenseName']) { ?>
+                <a href="<?= $plugin['licenseUrl'] ?>" target="_blank" rel="noopener noreferrer"><?= $plugin['licenseName'] ?></a>
             <?php } else { ?>
                 <i class="no-description">No license found</i>
             <?php } ?>
