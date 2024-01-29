@@ -182,6 +182,8 @@ GRAPHQL;
   $readme .= $result['data']['repository']['readme7']['text'];
   $readme .= $result['data']['repository']['readme8']['text'];
 
+  $readme = replaceRelativeImageLinks($readme, $repoOwner, $repoName);
+
   // PLUGINS db insert
   $sql = "INSERT INTO `plugins` (`id`, `name`, `url`, `description`, ";
   $sql .= "`submittedAt`, ";
@@ -319,4 +321,18 @@ GRAPHQL;
   debug( json_encode($result), "RESULT");
 
   return json_encode($result, true);
+}
+
+function replaceRelativeImageLinks($readme, $repoOwner, $repoName)
+{
+    $githubRawBaseUrl = "https://raw.githubusercontent.com/$repoOwner/$repoName/master/";
+    $pattern = '/!\[.*?\]\((?!http)(.*?)\)/';
+
+    $replaceCallback = function ($matches) use ($githubRawBaseUrl) {
+        return "![image]($githubRawBaseUrl{$matches[1]})";
+    };
+
+    $readme = preg_replace_callback($pattern, $replaceCallback, $readme);
+
+    return $readme;
 }
