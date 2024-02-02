@@ -23,7 +23,7 @@
             <?php include "partials/sidebar.php"; ?>
 
             <div class="col-12 col-md-9 content">
-                <div class="description">
+                <div class="description table table-sm table_col_padding">
                     <?php
                     if (empty($plugin['readme'])) {
                         echo '<i class="no-description">No description provided</i>';

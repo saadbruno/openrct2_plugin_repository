@@ -53,3 +53,25 @@ main {
     color: var(--bs-gray-6);
     font-style: italic;
 }
+
+table {
+    border-collapse:separate;
+    border-spacing:10px 10px;
+}
+
+.table_col_padding{
+    thead{
+      tr{
+        th{
+          padding-right: 1rem;
+        }
+      }
+    }
+    tbody{
+      tr{
+        td{
+          padding-right: 1rem;
+        }
+      }
+    }
+  }
