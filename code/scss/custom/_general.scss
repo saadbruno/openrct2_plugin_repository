@@ -54,24 +54,21 @@ main {
     font-style: italic;
 }
 
-table {
-    border-collapse:separate;
-    border-spacing:10px 10px;
-}
+$border-color: black;
+$border-thickness: 1.5px;
 
-.table_col_padding{
-    thead{
-      tr{
-        th{
-          padding-right: 1rem;
-        }
-      }
-    }
-    tbody{
-      tr{
-        td{
-          padding-right: 1rem;
-        }
-      }
-    }
+table {
+  th, td {
+    border-right: $border-thickness solid $border-color;
+    border-bottom: $border-thickness solid $border-color;
+    padding: 0.4rem;
   }
+
+  th:last-child, td:last-child {
+    border-right: none;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+}
