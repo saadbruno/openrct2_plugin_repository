@@ -58,17 +58,28 @@ $border-color: black;
 $border-thickness: 1.5px;
 
 table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid $border-color;
+  background-color: lightgray;
+
   th, td {
-    border-right: $border-thickness solid $border-color;
-    border-bottom: $border-thickness solid $border-color;
+    border: 1px solid $border-color;
     padding: 0.4rem;
+    text-align: left;
   }
 
-  th:last-child, td:last-child {
-    border-right: none;
+  th {
+    background-color: #CFD3D5;
   }
 
   tr:last-child td {
     border-bottom: none;
   }
+
+  th:last-child, td:last-child {
+    border-right: none;
+  }
 }
+
+
