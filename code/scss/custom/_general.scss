@@ -54,24 +54,30 @@ main {
     font-style: italic;
 }
 
-table {
-    border-collapse:separate;
-    border-spacing:10px 10px;
-}
+$border-color: black;
+$border-thickness: 1.5px;
 
-.table_col_padding{
-    thead{
-      tr{
-        th{
-          padding-right: 1rem;
-        }
-      }
-    }
-    tbody{
-      tr{
-        td{
-          padding-right: 1rem;
-        }
-      }
-    }
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid $border-color;
+  background-color: lightgray;
+
+  th, td {
+    border: 1px solid $border-color;
+    padding: 0.4rem;
+    text-align: left;
   }
+
+  th {
+    background-color: #CFD3D5;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+
+  th:last-child, td:last-child {
+    border-right: none;
+  }
+}
