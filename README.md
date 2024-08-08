@@ -28,6 +28,22 @@ Reverse proxy example for NGINX is in `docker/nginx/prod/reverse-proxy.conf`
 - Run `make build-sass` to build the scss into a css file
 - `make run-prod`
 
+## API:
+you can add a query string `json=true` to almost any page, and it will return the results in JSON.
+This works all the lists, as well as individual plugin pages and user pages.
+
+It will also work with any type of sorting, new, rating, updated, and also for searches.
+
+Examples:
+List of plugins (second page, showing 20 results per page):
+/list/?sort=new&results=20&p=2
+
+List of plugins by sadret:
+/user/MDQ6VXNlcjE1ODk1NTMy?json=true
+
+Individual plugin:
+/plugin/R_kgDOL_w7NA?json=true
+
 ## Links and other third party libraries used:
 - [Parsedown](https://github.com/erusev/parsedown)  
 - [HTML Purifier](http://htmlpurifier.org/)  
