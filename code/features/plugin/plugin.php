@@ -3,6 +3,14 @@
 // gets plugin info
 $plugin = getPluginDetails($_GET['q2']);
 
+// if the user requested the info as JSON
+if (isset($_GET['json'])) {
+    header('Content-Type: application/json');
+    $json = json_encode($plugin);
+    echo $json;
+    die;
+}
+
 if (empty($plugin['id'])) {
     include("views/home/404.php");
     exit;
