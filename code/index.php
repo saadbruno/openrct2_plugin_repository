@@ -42,6 +42,10 @@ switch ($_GET['q1']) {
         require_once("./features/plugin/plugin.php");
         break;
 
+    case 'api':
+        require_once("./features/api/api.php");
+        break;
+
     case 'home':
     default:
 
