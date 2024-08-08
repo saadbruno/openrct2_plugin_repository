@@ -44,6 +44,16 @@ List of plugins by sadret:
 Individual plugin:
 `/plugin/R_kgDOL_w7NA?json=true`
 
+Note that the last portion of a URL is usually just cosmetic. So, for example
+`https://openrct2plugins.org/plugin/R_kgDOL_w7NA/ParkPauser`  
+and  
+`https://openrct2plugins.org/plugin/R_kgDOL_w7NA`  
+goes to the same page.
+
+This can be useful for plugin-managers or something like that. So you can just grab the ID of the plugin from the /`list?json`, and then navigate to `/plugin/<id>`, it doesn't actually need the plugin name on the URL
+
+The same applies to `/user` pages.
+
 ## Links and other third party libraries used:
 - [Parsedown](https://github.com/erusev/parsedown)  
 - [HTML Purifier](http://htmlpurifier.org/)  
