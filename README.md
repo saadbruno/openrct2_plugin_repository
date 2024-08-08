@@ -36,13 +36,13 @@ It will also work with any type of sorting, new, rating, updated, and also for s
 
 Examples:
 List of plugins (second page, showing 20 results per page):
-/list/?sort=new&results=20&p=2
+`/list/?sort=new&results=20&p=2`
 
 List of plugins by sadret:
-/user/MDQ6VXNlcjE1ODk1NTMy?json=true
+`/user/MDQ6VXNlcjE1ODk1NTMy?json=true`
 
 Individual plugin:
-/plugin/R_kgDOL_w7NA?json=true
+`/plugin/R_kgDOL_w7NA?json=true`
 
 ## Links and other third party libraries used:
 - [Parsedown](https://github.com/erusev/parsedown)  
