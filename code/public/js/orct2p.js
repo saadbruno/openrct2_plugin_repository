@@ -43,3 +43,10 @@ document.querySelector('#submit-form').addEventListener('submit', function (e) {
         });
 
 });
+
+// whenever the user changes the "results per page dropdown"
+document.querySelector(`[name="results"]`).onchange = function(){
+    let url = new URL(window.location.href);
+    url.searchParams.set('results', this.value);
+    window.location.href = url.toString();
+};

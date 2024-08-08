@@ -9,8 +9,14 @@ if (empty($user['username'])) {
     exit;
 }
 
+// number of list items per page, limited to 100
+$resultsPerPage = isset($_GET['results']) ? intval($_GET['results']) : 8;
+if ($resultsPerPage > 100) {
+    $resultsPerPage = 100;
+}
+
 // gets list of plugins from database
-$list = getPluginList($p, 8, 'new', 'desc', $_GET['q2']);
+$list = getPluginList($p, $resultsPerPage, 'new', 'desc', $_GET['q2']);
 
 
 // set meta information
@@ -19,5 +25,14 @@ $meta['description'] = 'OpenRCT2 plugins by ' . $user['username'];
 $meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/user/' . $user['id'] . '/' . urlencode($user['username']);
 
 $list['info']['title'] = $user['username'] . "'s plug-ins";
+
+// if the user requested the info as JSON
+if (isset($_GET['json'])) {
+    header('Content-Type: application/json');
+    $json = json_encode($list);
+    echo $json;
+    die;
+}
+
 // loads view
 include_once("views/user/user.php");

@@ -14,8 +14,8 @@
 
         <div class="row">
             <?php
-                drawList($list_new, 'Newest plug-ins', false, 'new');
-                drawList($list_rating, 'Most starred plug-ins', false, 'rating');
+                drawList($list_new, 'Newest plug-ins', false, 'new', 1, false);
+                drawList($list_rating, 'Most starred plug-ins', false, 'rating', 1, false);
             ?>
         </div>
 

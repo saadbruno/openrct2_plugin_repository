@@ -12,5 +12,13 @@ $nav['active'] = 'home';
 $list_new = getPluginList($p, 6, 'new');
 $list_rating = getPluginList($p, 6, 'rating');
 
+// if the user requested the info as JSON
+if (isset($_GET['json'])) {
+    header('Content-Type: application/json');
+    $list = array( "new" => $list_new, "rating" => $list_rating); // merge the new and rating lists
+    $json = json_encode($list);
+    echo $json;
+    die;
+}
 // loads view
 include_once("views/home/home.php");

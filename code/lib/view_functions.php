@@ -85,10 +85,30 @@ function drawPagination($curr_page = 1, $total_pages, $query = [], $compact = fa
     <?php
 }
 
-function drawList($list, $title = 'List', $usePagination = true, $viewMore = '', $curr_page='1') {
+function drawList($list, $title = 'List', $usePagination = true, $viewMore = '', $curr_page='1', $show_results_select = true, $results_select_value = 8) {
     ?>
     <div class="col-12 list-container">
-        <h2><?= $title ?></h2>
+        <div class="row align-items-center">
+            <div class="col">
+                <h2><?= $title ?></h2>
+            </div>
+            <?php if($show_results_select) { ?>
+            <div class="col-12 col-md-auto">
+                Results per page: 
+                <select name="results" id="results-select">
+                    <?php if(isset($_GET['results'])) { ?>
+                    <option value="<?= intval($_GET['results']) ?>"><?= intval($_GET['results']) ?></option>
+                    <option value="" disabled>___</option>
+                    <?php } ?>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+            <?php } ?>
+        </div>
         <div class="plugin-list">
             <?php
             // if for some reason the list is empty (mysql error, or empty seach), we show a feedback message, instead of an error
