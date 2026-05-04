@@ -13,8 +13,8 @@
                 Reference
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting.md">Scripting Reference</a>
-                <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/openrct2.d.ts">API Reference</a>
+                <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting/scripting.md">Scripting Reference</a>
+                <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/OpenRCT2/blob/develop/distribution/scripting/openrct2.d.ts">API Reference</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" target="_blank" rel="noopener noreferrer" href="https://github.com/OpenRCT2/plugin-samples">Plug-in samples</a>
             </div>
