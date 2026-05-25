@@ -28,7 +28,7 @@
                     if (empty($plugin['readme'])) {
                         echo '<i class="no-description">No description provided</i>';
                     } else {
-                        echo $Parsedown->text( $purifier->purify($plugin['readme']) );
+                        echo $purifier->purify( $Parsedown->text($plugin['readme']) );
                     }
                     ?>
                 </div>
