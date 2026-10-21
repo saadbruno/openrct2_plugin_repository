@@ -218,7 +218,7 @@ function findTimeAgo($past, $now = "now", $length = "long")
 function debug($message, $title = 'DEBUG', $location = 'logs', $force = false)
 {
     // we only wanna print if debug is set in the .env
-    if ($_ENV['DEBUG'] != 1 && $force == false) {
+    if (($_ENV['DEBUG'] ?? null) != 1 && $force == false) {
         return;
     }
 

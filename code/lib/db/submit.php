@@ -242,7 +242,7 @@ GRAPHQL;
     $result['status'] = 'error';
     $result['message'] = 'Error when adding plugin ';
 
-    if ($_ENV['DEBUG'] == 1) {
+    if (($_ENV['DEBUG'] ?? null) == 1) {
       $result['message'] .= $e;
     }
 
