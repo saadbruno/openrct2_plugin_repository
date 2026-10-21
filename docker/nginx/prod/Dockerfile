@@ -1,4 +1,4 @@
-FROM nginx:1.23.1
+FROM nginx:1.31
 
 VOLUME /var/www/code
 WORKDIR /var/www/code
