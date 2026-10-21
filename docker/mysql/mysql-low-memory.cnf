@@ -12,7 +12,7 @@ innodb_ft_cache_size=1600000
 innodb_ft_total_cache_size=32000000
 
 # per thread or per operation settings
-thread_stack=131072
+# thread_stack=131072
 sort_buffer_size=32K
 read_buffer_size=8200
 read_rnd_buffer_size=8200
