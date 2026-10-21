@@ -2,11 +2,11 @@
 function getPluginList($page = 1, $items = 8, $sort = 'new', $order = 'desc', $owner ='')
 {
     // if there's a sort get, we override the one sent through the function
-    if ($_GET['sort']) {
+    if (!empty($_GET['sort']) && is_string($_GET['sort'])) {
         $sort = $_GET['sort'];
     }
     // if there's an order get, we override the one sent through the function
-    if ($_GET['order']) {
+    if (!empty($_GET['order']) && is_string($_GET['order'])) {
         $order = $_GET['order'];
     }
 
@@ -212,11 +212,11 @@ function listPluginsFromIdArray($ids,$page = 1, $items = 8, $sort = 'new', $orde
         }
 
         // if there's a sort get, we override the one sent through the function
-        if ($_GET['sort']) {
+        if (!empty($_GET['sort']) && is_string($_GET['sort'])) {
             $sort = $_GET['sort'];
         }
         // if there's an order get, we override the one sent through the function
-        if ($_GET['order']) {
+        if (!empty($_GET['order']) && is_string($_GET['order'])) {
             $order = $_GET['order'];
         }
     

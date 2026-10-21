@@ -129,7 +129,7 @@ GRAPHQL;
   // debug($result, 'Raw GitHub API result');
 
   // If Git|Hub returns an error, we return before trying to mess with the database
-  if (isset($result['errors'])) {
+  if (!empty($result['errors']) || !isset($result['data']['repository']['id'], $result['data']['repository']['owner']['id'])) {
     header('Content-Type: application/json; charset=UTF-8');
     $result = array();
     $result['status'] = 'error';
@@ -147,10 +147,10 @@ GRAPHQL;
   if (isset($result['data']['repository']['releases']['edges'][0]['node']['publishedAt'])) {
     $updatedAt =  date("U", strtotime($result['data']['repository']['releases']['edges'][0]['node']['publishedAt']));
   } else {
-    $updatedAt =  date("U", strtotime($result['data']['repository']['pushedAt']));
+    $updatedAt =  date("U", strtotime($result['data']['repository']['pushedAt'] ?? $result['data']['repository']['updatedAt']));
   }
 
-  debug($result['data']['repository']['releases']['edges'][0]['node']['publishedAt'], "Latest release date (including pre-releases)");
+  debug($result['data']['repository']['releases']['edges'][0]['node']['publishedAt'] ?? null, "Latest release date (including pre-releases)");
 
   $submittedAt = time();
 
@@ -162,25 +162,25 @@ GRAPHQL;
   }
 
   // deals with License inconsistencies
-  $license = $result['data']['repository']['licenseInfo']['nickname'];
+  $license = $result['data']['repository']['licenseInfo']['nickname'] ?? null;
   // if there's no nickname, use the spdxId
   if (empty($license)) {
-    $license = $result['data']['repository']['licenseInfo']['spdxId'];
+    $license = $result['data']['repository']['licenseInfo']['spdxId'] ?? null;
   }
   // if the spdxId is "NOASSERTION", then use the actual name
   if ($license == 'NOASSERTION') {
-    $license = $result['data']['repository']['licenseInfo']['name'];
+    $license = $result['data']['repository']['licenseInfo']['name'] ?? null;
   }
 
   // Appends all the 4 readme checks. Since most likely only 1 of them will have any text, we can just append them all. Easier than doing a bunch of if/ elses
-  $readme = $result['data']['repository']['readme1']['text'];
-  $readme .= $result['data']['repository']['readme2']['text'];
-  $readme .= $result['data']['repository']['readme3']['text'];
-  $readme .= $result['data']['repository']['readme4']['text'];
-  $readme .= $result['data']['repository']['readme5']['text'];
-  $readme .= $result['data']['repository']['readme6']['text'];
-  $readme .= $result['data']['repository']['readme7']['text'];
-  $readme .= $result['data']['repository']['readme8']['text'];
+  $readme = ($result['data']['repository']['readme1']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme2']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme3']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme4']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme5']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme6']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme7']['text'] ?? '');
+  $readme .= ($result['data']['repository']['readme8']['text'] ?? '');
 
   $readme = replaceRelativeImageLinks($readme, $repoOwner, $repoName);
 
@@ -218,7 +218,7 @@ GRAPHQL;
   array_push($args, $result['data']['repository']['owner']['id']);
   array_push($args, $readme);
   array_push($args, $license);
-  array_push($args, $result['data']['repository']['licenseInfo']['url']);
+  array_push($args, $result['data']['repository']['licenseInfo']['url'] ?? null);
   array_push($args, $result['data']['repository']['name']);
   array_push($args, $result['data']['repository']['url']);
   array_push($args, $result['data']['repository']['description']);
@@ -229,7 +229,7 @@ GRAPHQL;
   array_push($args, $result['data']['repository']['owner']['id']);
   array_push($args, $readme);
   array_push($args, $license);
-  array_push($args, $result['data']['repository']['licenseInfo']['url']);
+  array_push($args, $result['data']['repository']['licenseInfo']['url'] ?? null);
 
   debug($sql, 'QUERY');
   // debug($args, 'QUERY ARGS');

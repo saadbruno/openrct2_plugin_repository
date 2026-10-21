@@ -11,6 +11,8 @@
  */
 class HTMLPurifier_ChildDef_List extends HTMLPurifier_ChildDef
 {
+    /** @var bool */
+    public $whitespace = false;
     /**
      * @type string
      */

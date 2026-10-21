@@ -32,7 +32,7 @@
     </ul>
     <form id="nav-search" class="form-inline mt-2 mt-md-0" action="/list/" method="get" >
         <div class="input-group">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" value="<?= $_GET['search']?>">
+            <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="search" value="<?= htmlspecialchars(is_string($_GET['search'] ?? null) ? $_GET['search'] : '', ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8') ?>">
             <button class="btn btn-secondary" type="submit"><i class="fas fa-search"></i></button>
         </div>
     </form>

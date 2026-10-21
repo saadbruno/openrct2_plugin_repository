@@ -41,6 +41,8 @@
  */
 class HTMLPurifier_Lexer
 {
+    /** @var HTMLPurifier_EntityParser */
+    public $_entity_parser;
 
     /**
      * Whether or not this lexer implements line-number/column-number tracking.

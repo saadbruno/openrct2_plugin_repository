@@ -19,7 +19,7 @@ if (!empty($_GET['search'])) {
 
 } else {
 
-    switch ($_GET['sort']) {
+    switch ($_GET['sort'] ?? '') {
         case 'rating':
             $meta['title'] = 'Most starred Plug-ins | OpenRCT2 Plug-ins Directory';
             $meta['description'] = 'Get the highest rated plug-ins submitted to our directory of OpenRCT2 plug-ins';

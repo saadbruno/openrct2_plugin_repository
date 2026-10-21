@@ -18,5 +18,7 @@ try {
     $pdo = new PDO($dsn, $db_user, $db_pass, $opt);
     $db_status = 'Database Connected Successfully!';
 } catch (PDOException $e) {
-    $db_status = 'Error connecting to the database: ' . $e->getMessage() . " ¯\_(ツ)_/¯";
+    error_log('Database connection failed: ' . $e->getMessage());
+    http_response_code(503);
+    exit('Database temporarily unavailable.');
 }

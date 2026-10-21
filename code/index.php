@@ -26,10 +26,10 @@ $meta['image'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . '/p
 $meta['url'] = $_SERVER['REQUEST_SCHEME'] . '://' . $_ENV['DOMAIN_NAME'] . $_SERVER['REQUEST_URI'];
 
 // GET variables
-$p = preg_replace('/[^0-9]/', '', filter_input(INPUT_GET, 'p', FILTER_SANITIZE_NUMBER_INT));
+$p = preg_replace('/[^0-9]/', '', filter_input(INPUT_GET, 'p', FILTER_SANITIZE_NUMBER_INT) ?? '');
 $p = $p ? $p : 1;
 
-switch ($_GET['q1']) {
+switch ($_GET['q1'] ?? '') {
     case 'list':
         require_once("./features/list/list.php");
         break;
